@@ -1,0 +1,79 @@
+@startuml
+
+abstract class Vehiculo {
+    
+}
+
+abstract class claseVehiculo {
+    obtenerTipo(): string
+}
+
+class sedan {
+    
+}
+
+class compacto {
+
+}
+
+class SUV {
+
+}
+
+abstract class estadoVehiculo {
+
+}
+
+class necesitaLimpieza {
+
+}
+
+class Disponible {
+    
+}
+
+class enAlquiler {
+    
+}
+
+class enMantenimiento {
+    
+}
+
+class gestorTarifas {
+
+}
+
+class gestorVehiculos {
+
+}
+
+class cliente {
+
+}
+
+class gestorKilometros {
+
+}
+
+class mantenimientoVehiculos {
+
+}
+
+gestorTarifas *-- gestorKilometros
+gestorVehiculos *-r- mantenimientoVehiculos
+cliente *-d- gestorVehiculos
+cliente *-d- gestorTarifas 
+gestorVehiculos *-- Vehiculo
+
+Vehiculo *-l- claseVehiculo
+Vehiculo *-r- estadoVehiculo
+
+claseVehiculo <|-d- sedan
+claseVehiculo <|-d- compacto
+claseVehiculo <|-d- SUV
+
+estadoVehiculo <|-d- necesitaLimpieza
+estadoVehiculo <|-d- Disponible
+estadoVehiculo <|-d- enAlquiler
+estadoVehiculo <|-d- enMantenimiento
