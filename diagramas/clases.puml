@@ -1,11 +1,26 @@
 @startuml
 
 abstract class Vehiculo {
-    
+    - matricula: string
+    - estadoVehiculo: estadoVehiculo[]
+    - claseVehiculo: claseVehiculo[]
+
+    + getters_y_setters()
+}
+
+class mantenimientoVehiculos {
+
+}
+
+class gestorTarifas {
+    - kilometros: number
+    - dias: number
+    - calcularTarifa()
+    + getters_y_setters()
 }
 
 abstract class claseVehiculo {
-    obtenerTipo(): string
+    abstract obtenerValor(): string
 }
 
 class sedan {
@@ -21,7 +36,7 @@ class SUV {
 }
 
 abstract class estadoVehiculo {
-
+    abstract obtenerValor(): string
 }
 
 class necesitaLimpieza {
@@ -40,31 +55,10 @@ class enMantenimiento {
     
 }
 
-class gestorTarifas {
+' Relaciones
 
-}
-
-class gestorVehiculos {
-
-}
-
-class cliente {
-
-}
-
-class gestorKilometros {
-
-}
-
-class mantenimientoVehiculos {
-
-}
-
-gestorTarifas *-- gestorKilometros
-gestorVehiculos *-r- mantenimientoVehiculos
-cliente *-d- gestorVehiculos
-cliente *-d- gestorTarifas 
-gestorVehiculos *-- Vehiculo
+Vehiculo *-d- mantenimientoVehiculos
+Vehiculo *-d- gestorTarifas
 
 Vehiculo *-l- claseVehiculo
 Vehiculo *-r- estadoVehiculo
@@ -77,3 +71,8 @@ estadoVehiculo <|-d- necesitaLimpieza
 estadoVehiculo <|-d- Disponible
 estadoVehiculo <|-d- enAlquiler
 estadoVehiculo <|-d- enMantenimiento
+
+
+
+
+@enduml
