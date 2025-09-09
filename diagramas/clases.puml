@@ -1,77 +1,60 @@
 @startuml
 
 abstract class Vehiculo {
-    - matricula: string
-    - estadoVehiculo: estadoVehiculo[]
-    - claseVehiculo: claseVehiculo[]
+    - abstract matricula: string
+    - enMantenimiento: boolean
+    - enReserva: boolean
+    - necesitaLimpieza: boolean
 
-    + getters_y_setters()
+    + setters_y_getters()
 }
 
-class mantenimientoVehiculos {
-
+class CalculadoraDeTarifas {
+    + calcularTarifa(reserva: Reserva, kilometros: number)
 }
 
-class gestorTarifas {
-    - kilometros: number
-    - dias: number
-    - calcularTarifa()
-    + getters_y_setters()
+class Reserva {
+    - cant_dias: number
+    - vehiculo: Vehiculo
+    + crearReserva(fecha_inicio: number, fecha_fin: number, vehiculo: Vehiculo)
 }
 
-abstract class claseVehiculo {
-    abstract obtenerValor(): string
+class Mantenimiento {
+    + realizarMantenimiento(vehiculo: Vehiculo)
 }
 
-class sedan {
-    
+abstract class TipodeVehiculo {
+    + abstract obtenerValor()
 }
 
-class compacto {
+class Compacto {
 
 }
+class Sedán {
 
+}
 class SUV {
 
 }
 
-abstract class estadoVehiculo {
-    abstract obtenerValor(): string
-}
-
-class necesitaLimpieza {
-
-}
-
-class Disponible {
-    
-}
-
-class enAlquiler {
-    
-}
-
-class enMantenimiento {
-    
-}
-
 ' Relaciones
 
-Vehiculo *-d- mantenimientoVehiculos
-Vehiculo *-d- gestorTarifas
+Vehiculo *-l- CalculadoraDeTarifas
+Vehiculo *-d- Mantenimiento
+Vehiculo *-r- Reserva
+Vehiculo <|-d- TipodeVehiculo
 
-Vehiculo *-l- claseVehiculo
-Vehiculo *-r- estadoVehiculo
 
-claseVehiculo <|-d- sedan
-claseVehiculo <|-d- compacto
-claseVehiculo <|-d- SUV
+TipodeVehiculo <|-- Compacto
+TipodeVehiculo <|-- Sedán
+TipodeVehiculo <|-- SUV
 
-estadoVehiculo <|-d- necesitaLimpieza
-estadoVehiculo <|-d- Disponible
-estadoVehiculo <|-d- enAlquiler
-estadoVehiculo <|-d- enMantenimiento
+' Notas
 
+note right of TipodeVehiculo::obtenerValor
+    'devuelve un valor de tipo string
+    return string
+end note
 
 
 
