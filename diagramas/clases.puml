@@ -1,7 +1,7 @@
-@startuml
+@startuml Diagrama de clases
 
 abstract class Vehiculo {
-    - abstract matricula: string
+    - matricula: string
     - enMantenimiento: boolean
     - enReserva: boolean
     - necesitaLimpieza: boolean
@@ -9,14 +9,19 @@ abstract class Vehiculo {
     + setters_y_getters()
 }
 
-class CalculadoraDeTarifas {
-    + calcularTarifa(reserva: Reserva, kilometros: number)
+class CalculadoraTarifasFinales {
+    + calcularTarifa(tarifaBase: number, reserva: Reserva, kilometros: number)
+}
+
+class CalculadoraTarifasBase {
+    + calcularTarifa(reserva: Reserva)
 }
 
 class Reserva {
     - cant_dias: number
     - vehiculo: Vehiculo
-    - tarifaBase: number
+
+    + setters_y_getters()
     + crearReserva(fecha_inicio: number, fecha_fin: number, vehiculo: Vehiculo)
 }
 
@@ -25,7 +30,7 @@ class Mantenimiento {
 }
 
 abstract class TipodeVehiculo {
-    + abstract obtenerValor()
+    + abstract obtenerTipo()
 }
 
 class Compacto {
@@ -40,9 +45,8 @@ class SUV {
 
 ' Relaciones
 
-Vehiculo *-l- CalculadoraDeTarifas
 Vehiculo *-d- Mantenimiento
-Vehiculo *-r- Reserva
+Vehiculo *-l- Reserva
 Vehiculo <|-d- TipodeVehiculo
 
 
