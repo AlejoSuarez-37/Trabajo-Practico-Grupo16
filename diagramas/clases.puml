@@ -6,6 +6,7 @@ abstract class Vehiculo {
     - enReserva: boolean
     - necesitaLimpieza: boolean
 
+    + abstract obtenerTipo()
     + setters_y_getters()
 }
 
@@ -29,10 +30,6 @@ class Mantenimiento {
     + realizarMantenimiento(vehiculo: Vehiculo)
 }
 
-abstract class TipodeVehiculo {
-    + abstract obtenerTipo()
-}
-
 class Compacto {
 
 }
@@ -45,22 +42,12 @@ class SUV {
 
 ' Relaciones
 
-Vehiculo *-d- Mantenimiento
-Vehiculo *-l- Reserva
+Vehiculo *-l- Mantenimiento
+Vehiculo *-r- Reserva
 Vehiculo <|-d- TipodeVehiculo
 
-
-TipodeVehiculo <|-- Compacto
-TipodeVehiculo <|-- Sedán
-TipodeVehiculo <|-- SUV
-
-' Notas
-
-note right of TipodeVehiculo::obtenerValor
-    'devuelve un valor de tipo string
-    return string
-end note
-
-
+Vehiculo <|-- Compacto
+Vehiculo <|-- Sedán
+Vehiculo <|-- SUV
 
 @enduml

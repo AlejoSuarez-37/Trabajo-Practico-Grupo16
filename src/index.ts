@@ -13,6 +13,7 @@ function main(){
 
     // creamos un compacto
     const compacto1 = new Compacto();
+    compacto1.setMatricula("1234");
     const reservaCompacto1 = new Reserva();
     // creamos la reserva
     reservaCompacto1.crearReserva(3, 20, compacto1);
@@ -25,6 +26,7 @@ function main(){
 
     
     const sedán1 = new Sedán();
+    sedán1.setMatricula("4567");
     const reservaSedán1 = new Reserva();
     reservaSedán1.crearReserva(5, 30, sedán1);
     let tarifaBaseSedán = calculadoraTarifasBase.calcularTarifa(reservaSedán1);
@@ -34,6 +36,7 @@ function main(){
 
 
     const suv1 = new SUV();
+    suv1.setMatricula("4321");
     const reservaSUV1 = new Reserva();
     reservaSUV1.crearReserva(10, 20, suv1);
     let tarifaBaseSUV = calculadoraTarifasBase.calcularTarifa(reservaSUV1);
@@ -44,6 +47,7 @@ function main(){
 
     // creamos una sedan que necesita mantenimiento
     const sedán2 = new Sedán()
+    sedán2.setMatricula("4567");
     sedán2.setNecesitaMantenimiento(true);
     sedán2.setNecesitaLimpieza(true);
     const reservaSedán2 = new Reserva()
