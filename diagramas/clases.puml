@@ -16,6 +16,7 @@ class CalculadoraDeTarifas {
 class Reserva {
     - cant_dias: number
     - vehiculo: Vehiculo
+    - tarifaBase: number
     + crearReserva(fecha_inicio: number, fecha_fin: number, vehiculo: Vehiculo)
 }
 
