@@ -12,8 +12,8 @@
 
 # creamos una reserva
     const reservaCompacto = new Reserva();
-# y en la reserva le especificamos la fecha de inicio, la fecha final y el vehiculo deseado
-    reservaCompacto1.crearReserva(3, 20, compacto1);
+# y en la reserva le especificamos la fecha de inicio, la fecha final, el vehiculo deseado y el tipo de vehiculo
+    reservaCompacto.crearReserva(3, 20, compacto, compacto.obtenerTipo());
 
 # calculamos la tarifa base para el vehiculo reservado
     let tarifaBaseCompacto = calculadoraTarifasBase.calcularTarifa(reservaCompacto);

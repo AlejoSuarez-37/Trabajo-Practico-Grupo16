@@ -2,13 +2,13 @@ import Reserva from "./reserva";
 
 export default class CalculadoraTarifasBase {
     public calcularTarifa(reserva: Reserva): number {
-        if(reserva.getVehiculo().obtenerTipo() === "Compacto"){
+        if(reserva.getTipoVehiculo() === "Compacto"){
             return 30 * reserva.getCantDias();
         }
-        if(reserva.getVehiculo().obtenerTipo() === "Sedán"){
+        if(reserva.getTipoVehiculo() === "Sedán"){
             return 50 * reserva.getCantDias();
         }
-        if(reserva.getVehiculo().obtenerTipo() === "SUV"){
+        if(reserva.getTipoVehiculo() === "SUV"){
             return 80 * reserva.getCantDias();
         }
         else {

@@ -30,6 +30,9 @@ class Mantenimiento {
     + realizarMantenimiento(vehiculo: Vehiculo)
 }
 
+abstract class TipoVehiculo {
+    + abstract obtenerTipo(): string
+}
 class Compacto {
 
 }
@@ -44,10 +47,10 @@ class SUV {
 
 Vehiculo *-l- Mantenimiento
 Vehiculo *-r- Reserva
-Vehiculo <|-d- TipodeVehiculo
+Vehiculo <|-d- TipoVehiculo
 
-Vehiculo <|-- Compacto
-Vehiculo <|-- Sedán
-Vehiculo <|-- SUV
+TipoVehiculo <|-- Compacto
+TipoVehiculo <|-- Sedán
+TipoVehiculo <|-- SUV
 
 @enduml

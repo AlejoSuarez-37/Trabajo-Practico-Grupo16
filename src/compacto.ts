@@ -1,6 +1,6 @@
-import Vehiculo from "./vehiculo";
+import TipoVehiculo from "./tipoVehiculo";
 
-export default class Compacto extends Vehiculo {
+export default class Compacto extends TipoVehiculo {
     public obtenerTipo(): string {
         return "Compacto"
     }
