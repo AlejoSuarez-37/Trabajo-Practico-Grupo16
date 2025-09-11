@@ -2,7 +2,7 @@ import Reserva from "./reserva";
 
 export default class CalculadoraTarifasFinales {
     public calcularTarifa(tarifaBase: number, reserva: Reserva, kilometros: number):number {
-        reserva.getVehiculo().setEnReserva(false);
+        reserva.getVehiculo().estadoVehiculo.setEnReserva(false);
         if(reserva.getTipoVehiculo() === "Compacto"){
             if((kilometros / reserva.getCantDias()) >= 100){
                 return tarifaBase + (0.15 * kilometros);

@@ -1,10 +1,10 @@
 import CalculadoraTarifasBase from "./calculadoraTarifasBase";
 import CalculadoraTarifasFinales from "./calculadoraTarifasFinales";
-import Compacto from "./compacto"
 import Mantenimiento from "./mantenimiento";
 import Reserva from "./reserva"
-import Sedán from "./sedán";
-import SUV from "./suv";
+import Compacto from "./vehiculo/compacto";
+import Sedán from "./vehiculo/sedán";
+import SUV from "./vehiculo/suv";
 
 function main(){
     const calculadoraTarifasBase = new CalculadoraTarifasBase();
@@ -48,8 +48,8 @@ function main(){
     // creamos una sedan que necesita mantenimiento
     const sedán2 = new Sedán()
     sedán2.setMatricula("4567");
-    sedán2.setNecesitaMantenimiento(true);
-    sedán2.setNecesitaLimpieza(true);
+    sedán2.estadoVehiculo.setNecesitaMantenimiento(true);
+    sedán2.estadoVehiculo.setNecesitaLimpieza(true);
     const reservaSedán2 = new Reserva()
     // no nos deja reservarla
     reservaSedán2.crearReserva(10, 20, sedán2, sedán2.obtenerTipo());
@@ -59,6 +59,5 @@ function main(){
     // le falta la limpieza
     mantenimiento.realizarLimpieza(sedán2);
     reservaSedán2.crearReserva(10, 20, sedán2, sedán2.obtenerTipo());
-
 }
 main()
