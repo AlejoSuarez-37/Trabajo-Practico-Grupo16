@@ -2,17 +2,17 @@ import EstadoVehiculo from "./estadoVehiculo";
 
 export default abstract class Vehiculo {
     private matricula: string
-    public estadoVehiculo: EstadoVehiculo
+    private estadoVehiculo: EstadoVehiculo = new EstadoVehiculo();
 
-    constructor(){
-        this.matricula = "";
-        this. estadoVehiculo = new EstadoVehiculo();
+    constructor(matricula: string){
+        this.matricula = matricula;
     }
 
-    public setMatricula(value: string):void {
-        this.matricula = value;
-    }
     public getMatricula():string {
         return this.matricula;
     }
+    public getEstadoVehiculo():EstadoVehiculo {
+        return this.estadoVehiculo;
+    }
+    public abstract obtenerTarifa(dias: number, kilometros: number): number
 }

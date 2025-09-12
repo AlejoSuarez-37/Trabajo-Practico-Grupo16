@@ -2,7 +2,7 @@
 
 abstract class Vehiculo {
     - matricula: string
-    + estadoVehiculo: EstadoVehiculo
+    - estadoVehiculo: EstadoVehiculo
     
     + setters_y_getters()
 }
@@ -54,10 +54,10 @@ class SUV {
 ' Relaciones
 
 Vehiculo *-r- Mantenimiento
-Vehiculo *-l- Reserva
 Vehiculo *-u- EstadoVehiculo
 Vehiculo <|-d- TipoVehiculo
 
+Reserva *-r- Vehiculo
 
 TipoVehiculo <|-- Compacto
 TipoVehiculo <|-- Sedán

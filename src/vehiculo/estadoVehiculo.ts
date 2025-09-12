@@ -9,12 +9,9 @@ export default class EstadoVehiculo {
         this.necesitaLimpieza = false;
     }
     public esReservable():boolean {
-        if (!this.getEnReserva() && !this.getNecesitaMantenimiento() && !this.getNecesitaLimpieza()){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return !this.getEnReserva() 
+        && !this.getNecesitaMantenimiento() 
+        && !this.getNecesitaLimpieza();
     }
     public setEnReserva(value: boolean):void {
         this.enReserva = value;
