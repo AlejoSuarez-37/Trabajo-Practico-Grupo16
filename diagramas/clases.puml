@@ -6,8 +6,11 @@ abstract class Vehiculo {
     - enReserva: boolean
     - necesitaLimpieza: boolean
 
-    + abstract obtenerTipo()
     + setters_y_getters()
+}
+
+class Garaje {
+
 }
 
 class CalculadoraTarifasFinales {
@@ -30,9 +33,6 @@ class Mantenimiento {
     + realizarMantenimiento(vehiculo: Vehiculo)
 }
 
-abstract class TipoVehiculo {
-    + abstract obtenerTipo(): string
-}
 class Compacto {
 
 }
@@ -45,12 +45,13 @@ class SUV {
 
 ' Relaciones
 
-Vehiculo *-l- Mantenimiento
-Vehiculo *-r- Reserva
-Vehiculo <|-d- TipoVehiculo
+Vehiculo *-r- Mantenimiento
+Reserva -r- Garage
+Garage <-u- Vehiculo
 
-TipoVehiculo <|-- Compacto
-TipoVehiculo <|-- Sedán
-TipoVehiculo <|-- SUV
+Compacto <|-d- Vehiculo
+Sedán <|-d- Vehiculo
+SUV <|-d- Vehiculo
+
 
 @enduml
