@@ -1,45 +1,31 @@
 @startuml Diagrama de clases
 
+class Cliente {
+    - vehiculos: Array<Vehiculo>;
+    - reservas: Array<Evento>;
+    - mantenimientos: Array<Evento>;
+
+    + comprarCompacto(matricula: string)
+    + comprarSUV(matricula: string)
+    + comprarSedán(matricula: string)
+
+    + crearReserva()
+    + devolverVehiculo()
+
+    + realizarMantenimiento()
+    + terminarMantenimiento()
+
+    + limpiarVehiculo()
+}
+
 abstract class Vehiculo {
     - matricula: string
-    - estadoVehiculo: EstadoVehiculo
+    - necesitaLimpieza: boolean
     
     + setters_y_getters()
-}
 
-class EstadoVehiculo {
-    - enReserva: boolean
-    - necesitaMantenimiento: boolean
-    - necesitaLimpieza: boolean
-
-    + esReservable()
-    + setters_y_getters()
-}
-
-class CalculadoraTarifasFinales {
-    + calcularTarifa(tarifaBase: number, reserva: Reserva, kilometros: number)
-}
-
-class CalculadoraTarifasBase {
-    + calcularTarifa(reserva: Reserva)
-}
-
-class Reserva {
-    - cant_dias: number
-    - tipoVehiculo: string
-    - vehiculo: Vehiculo
-
-    + setters_y_getters()
-    + crearReserva(fecha_inicio: number, fecha_fin: number, vehiculo: Vehiculo, tipoVehiculo: string)
-}
-
-class Mantenimiento {
-    + realizarMantenimiento(vehiculo: Vehiculo)
-    + realizarLimpieza(vehiculo: Vehiculo)
-}
-
-abstract class TipoVehiculo {
-    + abstract obtenerTipo(): string
+    + abstract obtenerTarifa(dias: number, kilometros: number)
+    + abstract obtenerTarifaMantenimiento(dias: number)
 }
 class Compacto {
 
@@ -51,16 +37,32 @@ class SUV {
 
 }
 
+class Evento {
+    - cant_dias: number
+    - tipoVehiculo: string
+    - vehiculo: Vehiculo
+    - ticket: number
+
+    + setters_y_getters()
+
+    - calcularCantDias()
+}
+
+class Calendario {
+    + revisarCalendario()
+    + estaDisponibleHoy()
+}
+
+
 ' Relaciones
 
-Vehiculo *-r- Mantenimiento
-Vehiculo *-u- EstadoVehiculo
-Vehiculo <|-d- TipoVehiculo
+Cliente *-- Vehiculo
+Cliente *-- Evento
 
-Reserva *-r- Vehiculo
+Evento *-r- Vehiculo
 
-TipoVehiculo <|-- Compacto
-TipoVehiculo <|-- Sedán
-TipoVehiculo <|-- SUV
+Vehiculo <|-- Compacto
+Vehiculo <|-- Sedán
+Vehiculo <|-- SUV
 
 @enduml

@@ -1,8 +1,6 @@
-import EstadoVehiculo from "./estadoVehiculo";
-
 export default abstract class Vehiculo {
-    private matricula: string
-    private estadoVehiculo: EstadoVehiculo = new EstadoVehiculo();
+    private matricula: string;
+    private necesitaLimpieza: boolean = false;
 
     constructor(matricula: string){
         this.matricula = matricula;
@@ -11,8 +9,13 @@ export default abstract class Vehiculo {
     public getMatricula():string {
         return this.matricula;
     }
-    public getEstadoVehiculo():EstadoVehiculo {
-        return this.estadoVehiculo;
+    public getNecesitaLimpieza():boolean {
+        return this.necesitaLimpieza;
     }
-    public abstract obtenerTarifa(dias: number, kilometros: number): number
+    public setNecesitaLimpieza(value:boolean):void {
+        this.necesitaLimpieza = value;
+    }
+    
+    public abstract obtenerTarifaReserva(dias: number, kilometros: number):number
+    public abstract obtenerTarifaMantenimiento(dias: number):number
 }
