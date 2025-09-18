@@ -22,15 +22,15 @@ abstract class Vehiculo {
     - matricula: string
     - necesitaLimpieza: boolean
     
-    + setters_y_getters()
-
     + abstract obtenerTarifa(dias: number, kilometros: number)
     + abstract obtenerTarifaMantenimiento(dias: number)
 }
+
 class Compacto {
 
 }
 class Sedán {
+
 
 }
 class SUV {
@@ -55,6 +55,13 @@ class Calendario {
 
 
 ' Relaciones
+Garage <-d- Vehiculo
+Vehiculo  *-r- Estado
+Reserva -r- Garage
+GestorReserva *-r- Reserva
+Mantenimiento *-r- Vehiculo 
+GestorMantenimiento *-r- Mantenimiento
+
 
 Cliente *-- Vehiculo
 Cliente *-- Evento
