@@ -1,66 +1,69 @@
 @startuml Diagrama de clases
 
+
+
+class Garage {
+    - autos : []
+
+    + setters_y_getters()
+}
+
 abstract class Vehiculo {
-    - matricula: string
-    + estadoVehiculo: EstadoVehiculo
-    
+    # matricula: string
+    # estado : Estado
+    # odometro : Odometro 
     + setters_y_getters()
 }
 
-class EstadoVehiculo {
-    - enReserva: boolean
-    - necesitaMantenimiento: boolean
-    - necesitaLimpieza: boolean
-
-    + esReservable()
-    + setters_y_getters()
-}
-
-class CalculadoraTarifasFinales {
-    + calcularTarifa(tarifaBase: number, reserva: Reserva, kilometros: number)
-}
-
-class CalculadoraTarifasBase {
-    + calcularTarifa(reserva: Reserva)
-}
-
-class Reserva {
-    - cant_dias: number
-    - tipoVehiculo: string
-    - vehiculo: Vehiculo
-
-    + setters_y_getters()
-    + crearReserva(fecha_inicio: number, fecha_fin: number, vehiculo: Vehiculo, tipoVehiculo: string)
-}
-
-class Mantenimiento {
-    + realizarMantenimiento(vehiculo: Vehiculo)
-    + realizarLimpieza(vehiculo: Vehiculo)
-}
-
-abstract class TipoVehiculo {
-    + abstract obtenerTipo(): string
-}
 class Compacto {
 
 }
 class Sedán {
+
 
 }
 class SUV {
 
 }
 
+class Mantenimiento {
+    - costo : number
+    - fecha : number
+    - matricula : string
+
+}
+
+class GestorMantenimiento{
+
+}
+
+class Reserva {
+    - cant_dias: number
+    - vehiculo: Vehiculo
+
+    + setters_y_getters()
+    + crearReserva(fecha_inicio: number, fecha_fin: number, vehiculo: Vehiculo)
+}
+
+class GestorReserva{
+
+}
+
+enum Estado {
+
+}
+
 ' Relaciones
+Garage <-d- Vehiculo
+Vehiculo  *-r- Estado
+Reserva -r- Garage
+GestorReserva *-r- Reserva
+Mantenimiento *-r- Vehiculo 
+GestorMantenimiento *-r- Mantenimiento
 
-Vehiculo *-r- Mantenimiento
-Vehiculo *-l- Reserva
-Vehiculo *-u- EstadoVehiculo
-Vehiculo <|-d- TipoVehiculo
+Vehiculo  <|-d- Compacto
+Vehiculo  <|-d- Sedán
+Vehiculo <|-d- SUV
 
-
-TipoVehiculo <|-- Compacto
-TipoVehiculo <|-- Sedán
-TipoVehiculo <|-- SUV
 
 @enduml
