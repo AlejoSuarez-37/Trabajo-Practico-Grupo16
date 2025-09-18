@@ -1,11 +1,5 @@
 @startuml Diagrama de clases
 
-abstract class Vehiculo {
-    # matricula: string
-    # estado : Estado
-    # odometro : Odometro 
-    + setters_y_getters()
-}
 
 class Garage {
     - autos : []
@@ -13,23 +7,11 @@ class Garage {
     + setters_y_getters()
 }
 
-
-class Mantenimiento {
-    - costo : number
-    - fecha : number
-    - matricula : string
-}
-
-class Reserva {
-    - cant_dias: number
-    - vehiculo: Vehiculo
-
+abstract class Vehiculo {
+    # matricula: string
+    # estado : Estado
+    # odometro : Odometro 
     + setters_y_getters()
-    + crearReserva(fecha_inicio: number, fecha_fin: number, vehiculo: Vehiculo)
-}
-
-enum Estado {
-    + realizarMantenimiento(vehiculo: Vehiculo)
 }
 
 class Compacto {
@@ -42,12 +24,39 @@ class SUV {
 
 }
 
-' Relaciones
+class Mantenimiento {
+    - costo : number
+    - fecha : number
+    - matricula : string
+}
 
+class GestorMantenimiento{
+
+}
+
+class Reserva {
+    - cant_dias: number
+    - vehiculo: Vehiculo
+
+    + setters_y_getters()
+    + crearReserva(fecha_inicio: number, fecha_fin: number, vehiculo: Vehiculo)
+}
+
+class GestorReserva{
+
+}
+
+enum Estado {
+
+}
+
+' Relaciones
+Garage <-d- Vehiculo
 Vehiculo  *-r- Estado
 Reserva -r- Garage
-Garage <-d- Vehiculo
+GestorReserva *-r- Reserva
 Mantenimiento *-r- Vehiculo 
+GestorMantenimiento *-r- Mantenimiento
 
 Vehiculo  <|-d- Compacto
 Vehiculo  <|-d- Sedán
