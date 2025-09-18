@@ -1,30 +1,25 @@
-# creamos objetos para las calculadoras(CalculadoraTarifasBase() y CalculadoraTarifasFinales())
-    const calculadoraTarifasBase = new CalculadoraTarifasBase();
-    const calculadoraTarifasFinales = new CalculadoraTarifasFinales();
+# creamos la clase cliente con:
+    const cliente = new Cliente();
+# creamos un vehiculo con:
+    cliente.comprarCompacto("1234");
 
-# creamos el objeto del tipo Mantenimiento() para hacer mantenimiento a los vehiculos
-    const mantenimiento = new Mantenimiento();  
+# si queremos reservar el vehiculo devemos crear dos constantes de tipo Date para el dia inicial y el final respectivamente:
+    const fecha1 = new Date("2025-09-15");
+    const fecha2 = new Date("2025-09-20");  
+# creamos la reserva:
+    cliente.crearReserva(fecha1,fecha2,"1234");
+# nos daran un ticket para devolverlo:
+    cliente.devolverVehiculo(500,1);
 
-# creamos vehiculos vehiculos del tipo que deseamos(Compacto(), sedán(), SUV())
-    const compacto = new Compacto();
-# le asignamos una matricula de tipo string
-    compacto.setMatricula("1234");
+# si queremos limpiar un vehiculo creamos la fecha de limpieza:
+    const fecha3 = new Date("2025-09-22");
+# y lo limpiamos con la fecha y la matricula:
+    cliente.limpiarVehiculo(fecha3,"1234");
 
-# creamos una reserva
-    const reservaCompacto = new Reserva();
-# y en la reserva le especificamos la fecha de inicio, la fecha final, el vehiculo deseado y el tipo de vehiculo
-    reservaCompacto.crearReserva(3, 20, compacto, compacto.obtenerTipo());
-
-# calculamos la tarifa base para el vehiculo reservado
-    let tarifaBaseCompacto = calculadoraTarifasBase.calcularTarifa(reservaCompacto);
-# y luego la tarifa final cuando querramos devolverlo
-    let tarifaFinalCompacto = calculadoraTarifasFinales.calcularTarifa(tarifaBaseCompacto, reservaCompacto1, 100);
-
-tener en cuenta que mientras esta en reserva no se puede crear una reserva del mismo vehiculo, realizar mantenimiento ni mandar a limpiar
-
-# para hacer mantenimiento debemos especificar que lo necesita
-    sedán.estadovehiculo.setNecesitaMantenimiento(true);
-    sedán.estadovehiculo.setNecesitaLimpieza(true);
-# y le damos el mantenimiento necesario
-    mantenimiento.realizarMantenimiento(sedán);
-    mantenimiento.realizarLimpieza(sedán);
+# si queremos dar mantenimiento creamos fechas iniciales y finales:
+    const fecha4 = new Date("2025-09-23");
+    const fecha5 = new Date("2025-09-26");
+# realizamos el mantenimiento:
+    cliente.realizarMantenimiento(fecha4,fecha5,"1234");
+# y con el ticket le damos fin al mantenimiento:
+    cliente.terminarMantenimiento(2);
