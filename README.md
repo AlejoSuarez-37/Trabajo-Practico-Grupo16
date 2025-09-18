@@ -6,7 +6,7 @@
     const mantenimiento = new Mantenimiento();  
 
 # creamos vehiculos vehiculos del tipo que deseamos(Compacto(), sedán(), SUV())
-    const compacto = new Compacto()
+    const compacto = new Compacto();
 # le asignamos una matricula de tipo string
     compacto.setMatricula("1234");
 
@@ -23,8 +23,8 @@
 tener en cuenta que mientras esta en reserva no se puede crear una reserva del mismo vehiculo, realizar mantenimiento ni mandar a limpiar
 
 # para hacer mantenimiento debemos especificar que lo necesita
-    sedán.setNecesitaMantenimiento(true);
-    sedán.setNecesitaLimpieza(true);
+    sedán.estadovehiculo.setNecesitaMantenimiento(true);
+    sedán.estadovehiculo.setNecesitaLimpieza(true);
 # y le damos el mantenimiento necesario
     mantenimiento.realizarMantenimiento(sedán);
     mantenimiento.realizarLimpieza(sedán);

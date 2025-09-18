@@ -1,5 +1,5 @@
-import SUV from "./suv";
-import Vehiculo from "./vehiculo"
+import SUV from "./vehiculo/suv";
+import Vehiculo from "./vehiculo/vehiculo"
 
 export default class Reserva {
     private cantDias: number
@@ -23,11 +23,11 @@ export default class Reserva {
     }
 
     public crearReserva(fechaInicio: number, fechaFin: number, vehiculo: Vehiculo, tipoVehiculo: string): void{
-        if(!vehiculo.getEnReserva() && !vehiculo.getNecesitaMantenimiento() && !vehiculo.getNecesitaLimpieza()){
+        if(vehiculo.estadoVehiculo.esReservable()){
             this.cantDias = fechaFin - fechaInicio;
             this.tipoVehiculo = tipoVehiculo;
             this.vehiculo = vehiculo;
-            vehiculo.setEnReserva(true);
+            vehiculo.estadoVehiculo.setEnReserva(true)
             console.log("Vehiculo reservado exitosamente.");
         }
         else {

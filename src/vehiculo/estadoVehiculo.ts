@@ -1,21 +1,20 @@
-export default abstract class Vehiculo {
-    private matricula: string
+export default class EstadoVehiculo {
     private enReserva: boolean
     private necesitaMantenimiento: boolean
     private necesitaLimpieza: boolean
 
     constructor(){
-        this.matricula = "";
         this.enReserva = false;
         this.necesitaMantenimiento = false;
         this.necesitaLimpieza = false;
     }
-
-    public setMatricula(value: string):void {
-        this.matricula = value;
-    }
-    public getMatricula():string {
-        return this.matricula;
+    public esReservable():boolean {
+        if (!this.getEnReserva() && !this.getNecesitaMantenimiento() && !this.getNecesitaLimpieza()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     public setEnReserva(value: boolean):void {
         this.enReserva = value;

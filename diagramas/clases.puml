@@ -1,6 +1,7 @@
 @startuml Diagrama de clases
 
 
+
 class Garage {
     - autos : []
 
@@ -19,6 +20,7 @@ class Compacto {
 }
 class Sedán {
 
+
 }
 class SUV {
 
@@ -28,6 +30,7 @@ class Mantenimiento {
     - costo : number
     - fecha : number
     - matricula : string
+
 }
 
 class GestorMantenimiento{
