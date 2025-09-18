@@ -1,24 +1,23 @@
 @startuml Diagrama de clases
 
 abstract class Vehiculo {
-    - matricula: string
-    - enMantenimiento: boolean
-    - enReserva: boolean
-    - necesitaLimpieza: boolean
+    # matricula: string
+    # estado : Estado
+    # odometro : Odometro 
+    + setters_y_getters()
+}
+
+class Garage {
+    - autos : []
 
     + setters_y_getters()
 }
 
-class Garaje {
 
-}
-
-class CalculadoraTarifasFinales {
-    + calcularTarifa(tarifaBase: number, reserva: Reserva, kilometros: number)
-}
-
-class CalculadoraTarifasBase {
-    + calcularTarifa(reserva: Reserva)
+class Mantenimiento {
+    - costo : number
+    - fecha : number
+    - matricula : string
 }
 
 class Reserva {
@@ -29,7 +28,7 @@ class Reserva {
     + crearReserva(fecha_inicio: number, fecha_fin: number, vehiculo: Vehiculo)
 }
 
-class Mantenimiento {
+enum Estado {
     + realizarMantenimiento(vehiculo: Vehiculo)
 }
 
@@ -45,13 +44,14 @@ class SUV {
 
 ' Relaciones
 
-Vehiculo *-r- Mantenimiento
+Vehiculo  *-r- Estado
 Reserva -r- Garage
-Garage <-u- Vehiculo
+Garage <-d- Vehiculo
+Mantenimiento *-r- Vehiculo 
 
-Compacto <|-d- Vehiculo
-Sedán <|-d- Vehiculo
-SUV <|-d- Vehiculo
+Vehiculo  <|-d- Compacto
+Vehiculo  <|-d- Sedán
+Vehiculo <|-d- SUV
 
 
 @enduml
