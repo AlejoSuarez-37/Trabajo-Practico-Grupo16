@@ -1,7 +1,7 @@
 import Evento from "./evento";
 
 export default class Calendario {
-    public revisarCalendario(fechaInicio: Date, fechaFin: Date, eventos: Array<Evento>):boolean {
+    static revisarCalendario(fechaInicio: Date, fechaFin: Date, eventos: Array<Evento>):boolean {
         let value: boolean = true;
         for (const evento of eventos){
             if ((fechaFin > evento.getFechaInicio() && fechaFin < evento.getFechaFin()) || 
@@ -12,7 +12,7 @@ export default class Calendario {
         }
         return value;
     }
-    public estaDisponibleHoy(fecha: Date, eventos: Array<Evento>):boolean{
+    static estaDisponibleHoy(fecha: Date, eventos: Array<Evento>):boolean{
         let value:boolean = true;
         for (const evento of eventos){
             if (!(fecha > evento.getFechaFin() || fecha < evento.getFechaInicio())){

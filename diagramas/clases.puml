@@ -31,7 +31,6 @@ class Compacto {
 }
 class Sedán {
 
-
 }
 class SUV {
 
@@ -55,13 +54,6 @@ class Calendario {
 
 
 ' Relaciones
-Garage <-d- Vehiculo
-Vehiculo  *-r- Estado
-Reserva -r- Garage
-GestorReserva *-r- Reserva
-Mantenimiento *-r- Vehiculo 
-GestorMantenimiento *-r- Mantenimiento
-
 
 Cliente *-- Vehiculo
 Cliente *-- Evento
