@@ -1,12 +1,11 @@
 import Garage from "./garage";
 
 export default class Cliente {
-    public crearReserva(fechaInicio: Date, fechaFin: Date, garage: Garage, matricula: string):void {
-        for (const vehiculo of garage.getVehiculos()){
-            if (vehiculo.getMatricula() === matricula){
-                garage.reservar(fechaInicio, fechaFin, vehiculo);
-            }
+    public reservar(fechaInicio: Date, fechaFin: Date, garage: Garage, matricula: string):void {
+        if (!garage.getVehiculos().has(matricula)){
+            throw new Error("No Existe el vehiculo");
         }
+        garage.crearReserva(fechaInicio, fechaFin,garage.getVehiculos().get(matricula)!);     
     }
 
     public devolverVehiculo(kilometros: number,garage: Garage, ticket: number):void {
