@@ -2,7 +2,7 @@ import Evento from "./evento";
 import Vehiculo from "./vehiculo/vehiculo";
 
 export default class Calendario {
-    static revisarCalendario(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo, eventos: Array<Evento>):boolean {
+    static revisarCalendario(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo, eventos: Set<Evento>):boolean {
         let value: boolean = true;
         for (const evento of eventos){
             if (evento.getVehiculo() === vehiculo){
@@ -16,7 +16,7 @@ export default class Calendario {
         return value;
     }
 
-    static estaDisponibleHoy(fecha: Date, vehiculo: Vehiculo, eventos: Array<Evento>):boolean{
+    static estaDisponibleHoy(fecha: Date, vehiculo: Vehiculo, eventos: Set<Evento>):boolean{
         let value:boolean = true;
         for (const evento of eventos){
             if ((evento.getVehiculo() === vehiculo) && 

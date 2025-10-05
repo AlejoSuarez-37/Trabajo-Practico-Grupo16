@@ -7,8 +7,8 @@ import Vehiculo from "./vehiculo/vehiculo";
 
 export default class Garage {
     private vehiculos: Map<string,Vehiculo> = new Map();
-    private mantenimientos: Array<Evento> = new Array();
-    private reservas: Array<Evento> = new Array();
+    private mantenimientos: Set<Evento> = new Set();
+    private reservas: Set<Evento> = new Set();
     private ticket:number = 1;
 
     public comprarCompacto(matricula: string):void {
@@ -23,7 +23,7 @@ export default class Garage {
 
     public crearReserva(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo){
         if (Calendario.revisarCalendario(fechaInicio, fechaFin, vehiculo, this.reservas) && Calendario.revisarCalendario(fechaInicio, fechaFin, vehiculo, this.mantenimientos)){
-            this.getReservas().push(new Evento(fechaInicio, fechaFin, vehiculo,this.ticket));
+            this.getReservas().add(new Evento(fechaInicio, fechaFin, vehiculo,this.ticket));
             console.log("Ticket:",this.ticket);
             this.ticket++;
         }
@@ -43,10 +43,10 @@ export default class Garage {
     public getVehiculos():Map<string,Vehiculo> {
         return this.vehiculos;
     }
-    public getReservas():Array<Evento> {
+    public getReservas():Set<Evento> {
         return this.reservas;
     }
-    public getMantenimientos():Array<Evento> {
+    public getMantenimientos():Set<Evento> {
         return this.mantenimientos;
     }
 }

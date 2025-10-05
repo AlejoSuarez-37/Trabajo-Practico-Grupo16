@@ -10,7 +10,7 @@ export default class Mecanico{
         }
         if (Calendario.revisarCalendario(fechaInicio, fechaFin, vehiculo, garage.getReservas()) && Calendario.revisarCalendario(fechaInicio, fechaFin, vehiculo, garage.getMantenimientos())){
             let evento = new Evento(fechaInicio, fechaFin, vehiculo);
-            garage.getMantenimientos().push(evento);
+            garage.getMantenimientos().add(evento);
             console.log(evento.getVehiculo().obtenerTarifaMantenimiento(evento.getCantDias()));
         }
     }

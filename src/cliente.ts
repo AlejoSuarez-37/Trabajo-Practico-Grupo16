@@ -6,7 +6,7 @@ export default class Cliente {
         if (!garage.getVehiculos().has(vehiculo.getMatricula())){
             throw new Error("No Existe el vehiculo");
         }
-        garage.crearReserva(fechaInicio, fechaFin, vehiculo);     
+        garage.crearReserva(fechaInicio, fechaFin, vehiculo);
     }
 
     public devolverVehiculo(kilometros: number, ticket: number, garage: Garage):void {
