@@ -1,8 +1,8 @@
 @startuml Diagrama de clases
 class Garage {
-    - vehiculos: Array<Vehiculo>;
-    - reservas: Array<Evento>;
-    - mantenimientos: Array<Evento>;
+    - vehiculos: Map<Vehiculo>;
+    - reservas: Set<Evento>;
+    - mantenimientos: Set<Evento>;
     - ticket: number;
 
     + comprarCompacto(matricula: string)

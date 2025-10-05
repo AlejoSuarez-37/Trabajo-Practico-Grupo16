@@ -1,7 +1,7 @@
 import Evento from "./evento";
 import Vehiculo from "./vehiculo/vehiculo";
 
-export default class Calendario {
+export default  class Calendario {
     static revisarCalendario(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo, eventos: Set<Evento>):boolean {
         let value: boolean = true;
         for (const evento of eventos){
