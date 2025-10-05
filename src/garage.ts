@@ -30,7 +30,7 @@ export default class Garage {
     }
 
     public limpiarVehiculo(fecha: Date, vehiculo: Vehiculo):void {
-        if (this.vehiculos.has(vehiculo.getMatricula())){
+        if (!this.vehiculos.has(vehiculo.getMatricula())){
             throw new Error("No Existe el vehiculo");
         }
         if (vehiculo.getNecesitaLimpieza()){

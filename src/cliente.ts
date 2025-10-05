@@ -3,7 +3,7 @@ import Vehiculo from "./vehiculo/vehiculo";
 
 export default class Cliente {
     public reservar(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo, garage: Garage):void {
-        if (garage.getVehiculos().has(vehiculo.getMatricula())){
+        if (!garage.getVehiculos().has(vehiculo.getMatricula())){
             throw new Error("No Existe el vehiculo");
         }
         garage.crearReserva(fechaInicio, fechaFin, vehiculo);     
