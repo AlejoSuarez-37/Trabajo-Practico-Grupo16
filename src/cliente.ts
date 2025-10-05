@@ -1,15 +1,15 @@
 import Garage from "./garage";
+import Vehiculo from "./vehiculo/vehiculo";
 
 export default class Cliente {
-    public crearReserva(fechaInicio: Date, fechaFin: Date, garage: Garage, matricula: string):void {
-        for (const vehiculo of garage.getVehiculos()){
-            if (vehiculo.getMatricula() === matricula){
-                garage.reservar(fechaInicio, fechaFin, vehiculo);
-            }
+    public reservar(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo, garage: Garage):void {
+        if (!garage.getVehiculos().has(vehiculo.getMatricula())){
+            throw new Error("No Existe el vehiculo");
         }
+        garage.crearReserva(fechaInicio, fechaFin, vehiculo);
     }
 
-    public devolverVehiculo(kilometros: number,garage: Garage, ticket: number):void {
+    public devolverVehiculo(kilometros: number, ticket: number, garage: Garage):void {
         for (const reserva of garage.getReservas()){
             if (reserva.getTicket() === ticket){
                 console.log(reserva.getVehiculo().obtenerTarifaReserva(reserva.getCantDias(),kilometros));

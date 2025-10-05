@@ -1,25 +1,19 @@
-# creamos la clase cliente con:
+# creamos clases Cliente, Garage y Mecanico
     const cliente = new Cliente();
-# creamos un vehiculo con:
-    cliente.comprarCompacto("1234");
+    const garage = new Garage();
+    const mecanico = new Mecanico();
 
-# si queremos reservar el vehiculo devemos crear dos constantes de tipo Date para el dia inicial y el final respectivamente:
-    const fecha1 = new Date("2025-09-15");
-    const fecha2 = new Date("2025-09-20");  
-# creamos la reserva:
-    cliente.crearReserva(fecha1,fecha2,"1234");
-# nos daran un ticket para devolverlo:
-    cliente.devolverVehiculo(500,1);
+# instanciamos al menos un vehiculo para reservar y hacer mantenimientos
+    const v1 = new Compacto("1234");
 
-# si queremos limpiar un vehiculo creamos la fecha de limpieza:
-    const fecha3 = new Date("2025-09-22");
-# y lo limpiamos con la fecha y la matricula:
-    cliente.limpiarVehiculo(fecha3,"1234");
+# para reservarlo devemos crear fechas iniciales y finales; y especificar el garage 
+    const f1 = new Date(2024, 11, 25);
+    const f2 = new Date(2024, 11, 27);
+    cliente.reservar(f1,f2,v1,garage);
+    cliente.devolverVehiculo(200000,1,garage);
 
-# si queremos dar mantenimiento creamos fechas iniciales y finales:
-    const fecha4 = new Date("2025-09-23");
-    const fecha5 = new Date("2025-09-26");
-# realizamos el mantenimiento:
-    cliente.realizarMantenimiento(fecha4,fecha5,"1234");
-# y con el ticket le damos fin al mantenimiento:
-    cliente.terminarMantenimiento(2);
+# para realizar mantenimientos a un vehiculo seguimos la misma metodologia
+    const f3 = new Date(2024, 11, 25);
+    const f4 = new Date(2024, 11, 26);
+    mecanico.realizarMantenimiento(f3,f4,v2,garage);
+

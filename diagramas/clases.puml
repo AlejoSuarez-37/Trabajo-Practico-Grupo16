@@ -1,21 +1,27 @@
 @startuml Diagrama de clases
-
-class Cliente {
-    - vehiculos: Array<Vehiculo>;
-    - reservas: Array<Evento>;
-    - mantenimientos: Array<Evento>;
+class Garage {
+    - vehiculos: Map<Vehiculo>;
+    - reservas: Set<Evento>;
+    - mantenimientos: Set<Evento>;
+    - ticket: number;
 
     + comprarCompacto(matricula: string)
     + comprarSUV(matricula: string)
     + comprarSedán(matricula: string)
 
     + crearReserva()
-    + devolverVehiculo()
-
-    + realizarMantenimiento()
-    + terminarMantenimiento()
-
     + limpiarVehiculo()
+
+    + setters_y_getters()
+}
+
+class Cliente {
+    + reservar()
+    + devolverVehiculo()
+}
+
+class Mecanico {
+    + realizarMantenimiento()
 }
 
 abstract class Vehiculo {
@@ -55,8 +61,13 @@ class Calendario {
 
 ' Relaciones
 
-Cliente *-- Vehiculo
-Cliente *-- Evento
+Cliente *-- Garage
+
+Mecanico *-r- Garage
+
+Garage *-d- Vehiculo
+Garage *-d- Evento
+Garage *-r- Calendario
 
 Evento *-r- Vehiculo
 

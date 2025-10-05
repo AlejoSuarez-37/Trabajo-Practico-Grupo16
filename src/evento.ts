@@ -7,12 +7,12 @@ export default class Evento {
     private vehiculo: Vehiculo;
     private ticket: number;
     
-    constructor(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo, ticket: number){
+    constructor(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo, ticket?: number){
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.cantDias = 0;
         this.vehiculo = vehiculo;
-        this.ticket = ticket;
+        this.ticket = ticket ?? 0;
         this.calcularCantDias();
     }
 
