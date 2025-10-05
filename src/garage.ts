@@ -11,14 +11,8 @@ export default class Garage {
     private reservas: Set<Evento> = new Set();
     private ticket:number = 1;
 
-    public comprarCompacto(matricula: string):void {
-        this.vehiculos.set(matricula, new Compacto(matricula));
-    }
-    public comprarSUV(matricula: string):void {
-        this.vehiculos.set(matricula, new SUV(matricula));
-    }
-    public comprarSedán(matricula: string):void {
-        this.vehiculos.set(matricula, new Sedán(matricula));
+    public comprarVehiculo(vehiculo: Vehiculo):void {
+        this.vehiculos.set(vehiculo.getMatricula(), vehiculo);
     }
 
     public crearReserva(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo){

@@ -5,9 +5,7 @@ class Garage {
     - mantenimientos: Set<Evento>;
     - ticket: number;
 
-    + comprarCompacto(matricula: string)
-    + comprarSUV(matricula: string)
-    + comprarSedán(matricula: string)
+    + comprarVehiculo(vehiculo: Vehiculo)
 
     + crearReserva()
     + limpiarVehiculo()

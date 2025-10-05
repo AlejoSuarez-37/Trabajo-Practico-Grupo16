@@ -11,10 +11,13 @@ function main(){
     const garage = new Garage();
     const mecanico = new Mecanico();
 
-    const v1 = new Compacto("1234")
-    const v2 = new SUV("5678")
-    const v3 = new Sedán("4321")
-
+    const v1 = new Compacto("1234");
+    const v2 = new SUV("5678");
+    const v3 = new Sedán("4321");
+    garage.comprarVehiculo(v1);
+    garage.comprarVehiculo(v2);
+    garage.comprarVehiculo(v3);
+    
     const f1 = new Date(2024, 11, 25)
     const f2 = new Date(2024, 11, 27)
     cliente.reservar(f1,f2,v1,garage)
