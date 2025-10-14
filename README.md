@@ -12,9 +12,11 @@
     const f2 = new Date(2024, 11, 27);
     const e1 = new Evento(f1,f2,v1)
     cliente.reservar(e1,garage)
+
+# para devolver un vehiculo especificamos los kilometros el evento y el garage
     cliente.devolverVehiculo(200000,e1,garage)
 
-# para realizar mantenimientos a un vehiculo seguimos la misma metodologia
+# para realizar mantenimientos a un vehiculo seguimos la misma metodologia (no debe devolverse el vehiculo)
     const f3 = new Date(2024, 11, 25);
     const f4 = new Date(2024, 11, 26);
     const e2 = new Evento(f3,f4,v2)
