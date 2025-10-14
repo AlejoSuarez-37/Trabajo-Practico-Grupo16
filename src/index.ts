@@ -1,4 +1,5 @@
 import Cliente from "./cliente"
+import Evento from "./evento"
 import Garage from "./garage"
 import Mecanico from "./mecanico"
 import Compacto from "./vehiculo/compacto"
@@ -20,11 +21,13 @@ function main(){
     
     const f1 = new Date(2024, 11, 25)
     const f2 = new Date(2024, 11, 27)
-    cliente.reservar(f1,f2,v1,garage)
-    cliente.devolverVehiculo(200000,1,garage)
+    const e1 = new Evento(f1,f2,v1)
+    cliente.reservar(e1,garage)
+    cliente.devolverVehiculo(200000,e1,garage)
 
     const f3 = new Date(2024, 11, 25)
     const f4 = new Date(2024, 11, 26)
-    mecanico.realizarMantenimiento(f3,f4,v2,garage)
+    const e2 = new Evento(f3,f4,v2)
+    mecanico.realizarMantenimiento(e2,garage)
 }
 main()
