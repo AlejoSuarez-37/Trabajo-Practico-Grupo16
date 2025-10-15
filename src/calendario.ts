@@ -16,28 +16,19 @@ export default  class Calendario {
     //     return value;
     // }
 
-    static revisarCalendario(evento: Evento,  eventos: Set<Evento>){
-        let value: boolean = true;
-        for (const eventoR of eventos){
-            if (eventoR.getVehiculo() === evento.getVehiculo()){
-                if ((evento.getFechaFin() > eventoR.getFechaInicio() && evento.getFechaFin() < eventoR.getFechaFin()) || 
-                    (evento.getFechaInicio() < eventoR.getFechaFin() && evento.getFechaInicio() > eventoR.getFechaInicio()) || 
-                    (evento.getFechaInicio() > evento.getFechaFin())){
-                        value = false;
-                }
-            }
-        }
-        return value;
+    static revisarCalendario(evento: Evento, eventos: Set<Evento>):boolean{
+        const array = Array.from(eventos);
+        const temp: Evento[] = array.filter((eventoTemp: Evento) => eventoTemp.getVehiculo() === evento.getVehiculo());
+        return !temp.some(eventoTemp => 
+            evento.getFechaInicio() <= eventoTemp.getFechaFin() &&
+            evento.getFechaFin() >= eventoTemp.getFechaInicio());
     }
 
     static estaDisponibleHoy(fecha: Date, vehiculo: Vehiculo, eventos: Set<Evento>):boolean{
-        let value:boolean = true;
-        for (const evento of eventos){
-            if ((evento.getVehiculo() === vehiculo) && 
-                (fecha > evento.getFechaFin() || fecha < evento.getFechaInicio())){
-                    value = false;
-            }
-        }
-        return value;
+        const array = Array.from(eventos);
+        const temp: Evento[] = array.filter((eventoTemp: Evento) => eventoTemp.getVehiculo() === vehiculo);
+        return temp.some(eventoTemp => 
+            fecha >= eventoTemp.getFechaInicio() &&
+            fecha <= eventoTemp.getFechaFin());
     }
 }
