@@ -3,7 +3,6 @@ class Garage {
     - vehiculos: Map<Vehiculo>;
     - reservas: Set<Evento>;
     - mantenimientos: Set<Evento>;
-    - ticket: number;
 
     + comprarVehiculo(vehiculo: Vehiculo)
 
@@ -44,7 +43,6 @@ class Evento {
     - cant_dias: number
     - tipoVehiculo: string
     - vehiculo: Vehiculo
-    - ticket: number
 
     + setters_y_getters()
 
