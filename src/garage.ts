@@ -6,7 +6,6 @@ export default class Garage {
     private vehiculos: Map<string,Vehiculo> = new Map();
     private mantenimientos: Set<Evento> = new Set();
     private reservas: Set<Evento> = new Set();
-    // private ticket:number = 1;
 
     public comprarVehiculo(vehiculo: Vehiculo):void {
         this.vehiculos.set(vehiculo.getMatricula(), vehiculo);
@@ -32,10 +31,4 @@ export default class Garage {
     public getMantenimientos():Set<Evento> {
         return this.mantenimientos;
     }
-    // public getTicket():number {
-    //     return this.ticket;
-    // }
-    // public plusTicket():void {
-    //     this.ticket++;
-    // }
 }
