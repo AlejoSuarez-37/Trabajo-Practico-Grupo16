@@ -5,14 +5,12 @@ export default class Evento {
     private fechaFin: Date;
     private cantDias: number;
     private vehiculo: Vehiculo;
-    private ticket: number;
     
-    constructor(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo, ticket?: number){
+    constructor(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo){
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.cantDias = 0;
         this.vehiculo = vehiculo;
-        this.ticket = ticket ?? 0;
         this.calcularCantDias();
     }
 
@@ -27,9 +25,6 @@ export default class Evento {
     }
     public getFechaFin():Date {
         return this.fechaFin;
-    }
-    public getTicket():number {
-        return this.ticket;
     }
 
     private calcularCantDias():void {
