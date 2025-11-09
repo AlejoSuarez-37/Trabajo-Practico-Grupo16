@@ -1,6 +1,12 @@
+import { Temporada } from "../temporada/temporada";
+import TemporadaMedia from "../temporada/temporadaMedia";
+import Estado from "./estado";
+
 export default abstract class Vehiculo {
     private matricula: string;
-    private necesitaLimpieza: boolean = false;
+    private estado: Estado = new Estado();
+
+    protected temporada: Temporada = new TemporadaMedia();
 
     constructor(matricula: string){
         this.matricula = matricula;
@@ -9,11 +15,11 @@ export default abstract class Vehiculo {
     public getMatricula():string {
         return this.matricula;
     }
-    public getNecesitaLimpieza():boolean {
-        return this.necesitaLimpieza;
+    public getEstado():Estado {
+        return this.estado;
     }
-    public setNecesitaLimpieza(value:boolean):void {
-        this.necesitaLimpieza = value;
+    public setTemporada(t:Temporada):void {
+        this.temporada = t;
     }
     
     public abstract obtenerTarifaReserva(dias: number, kilometros: number):number

@@ -1,23 +1,29 @@
-import Calendario from "./calendario";
+import DisparadorMantenimeinto from "./modif/disparadorMantenimiento";
 import Evento from "./evento";
 import Garage from "./garage";
-import Vehiculo from "./vehiculo/vehiculo";
+import OperacionesInvalidas from "./modif/operacionesInvalidas";
+
 
 export default class Cliente {
     public reservar(evento: Evento, garage: Garage):void {
-        if (!garage.getVehiculos().has(evento.getVehiculo().getMatricula())){
-            throw new Error("No Existe el vehiculo");
+        if (!OperacionesInvalidas.vehiculoEnStock(evento.getVehiculo(),garage)){
+            throw new Error("No Existe el vehiculo.");
         }
-        if (Calendario.revisarCalendario(evento,garage.getReservas()) && Calendario.revisarCalendario(evento,garage.getMantenimientos())){
-            garage.getReservas().add(evento);
+        if (!OperacionesInvalidas.estaDisponible(evento,garage)){
+            throw new Error("No se puede reservar el vehiculo.");
         }
+        garage.getReservas().add(evento);
     }
 
     public devolverVehiculo(kilometros: number, evento: Evento, garage: Garage):void {
         for (const reserva of garage.getReservas()){
             if (reserva === evento){
-                console.log(reserva.getVehiculo().obtenerTarifaReserva(reserva.getCantDias(),kilometros));
-                reserva.getVehiculo().setNecesitaLimpieza(true);
+                console.log(reserva.getVehiculo().obtenerTarifaReserva(reserva.getCantDias(),kilometros)+'$');
+                reserva.getVehiculo().getEstado().setNecesitaLimpieza(true);
+                evento.getVehiculo().getEstado().aumentarAlquileresCompletados();
+                evento.getVehiculo().getEstado().sumarKilometrosRecorridos(kilometros);
+                DisparadorMantenimeinto.chequearEstado(evento.getVehiculo(),evento.getFechaFin(),garage);
+                
             }
         }
     }

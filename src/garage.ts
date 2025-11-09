@@ -1,5 +1,5 @@
-import Calendario from "./calendario";
 import Evento from "./evento";
+import { Temporada } from "./temporada/temporada";
 import Vehiculo from "./vehiculo/vehiculo";
 
 export default class Garage {
@@ -11,17 +11,6 @@ export default class Garage {
         this.vehiculos.set(vehiculo.getMatricula(), vehiculo);
     }
 
-    public limpiarVehiculo(fecha: Date, vehiculo: Vehiculo):void {
-        if (!this.vehiculos.has(vehiculo.getMatricula())){
-            throw new Error("No Existe el vehiculo");
-        }
-        if (vehiculo.getNecesitaLimpieza()){
-            if (Calendario.estaDisponibleHoy(fecha, vehiculo, this.reservas) && Calendario.estaDisponibleHoy(fecha, vehiculo, this.mantenimientos)){
-                console.log("Se ha limpiado el vehiculo.");
-            }
-        }
-    }
-
     public getVehiculos():Map<string,Vehiculo> {
         return this.vehiculos;
     }
@@ -30,5 +19,10 @@ export default class Garage {
     }
     public getMantenimientos():Set<Evento> {
         return this.mantenimientos;
+    }
+    public setTemporada(t:Temporada):void {
+        this.vehiculos.forEach((value,key) => {
+            value.setTemporada(t);
+        })
     }
 }
