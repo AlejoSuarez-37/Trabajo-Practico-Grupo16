@@ -3,6 +3,7 @@
     const garage = new Garage();
     const mecanico = new Mecanico();
     const lavanderia = new Lavanderia();
+    const reporte = new Reporte();
 
 # instanciamos un vehiculo y lo compramos
     const v1 = new Compacto("1234");
@@ -27,5 +28,9 @@
     const f5 = new Date(2024,12,25);
     lavanderia.limpiarVehiculo(f5,v1,garage);
 
+# para hacer un reporte especificamos el garage
+    reporte.vehiculoMasAlquilado(garage);
 
+# para saber la ocupacion de la flota especificamos el garage y una fecha
+    reporte.ocupacionDeLaFlota(new Date(2024, 11, 26),garage);
 

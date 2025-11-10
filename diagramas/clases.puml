@@ -94,6 +94,7 @@ class OperacionesInvalidas {
     static estaDisponibleHoy()
     static vehiculoEnStock()
     static reservaEnReservas()
+    static eventoValido()
 }
 
 class DisparadorMantenimiento {

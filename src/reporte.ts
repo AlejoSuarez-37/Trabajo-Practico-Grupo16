@@ -1,4 +1,3 @@
-import Calendario from "./check/calendario";
 import Radar from "./check/radar";
 import Garage from "./garage";
 import Compacto from "./vehiculo/compacto";

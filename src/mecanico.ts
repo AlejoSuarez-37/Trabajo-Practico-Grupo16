@@ -10,6 +10,9 @@ export default class Mecanico{
         if (!OperacionesInvalidas.estaDisponible(evento,garage)){
             throw new Error("No se puede realizar mantenimiento al vehiculo.");
         }
+        if (!OperacionesInvalidas.eventoValido(evento)){
+            throw new Error("El evento no tiene fechas validas.");
+        }
         let tarifa:number = evento.getVehiculo().obtenerTarifaMantenimiento(evento.getCantDias());
         garage.getMantenimientos().add(evento);
         evento.getVehiculo().getEstado().reset(evento.getFechaFin());

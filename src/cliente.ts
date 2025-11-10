@@ -12,6 +12,9 @@ export default class Cliente {
         if (!OperacionesInvalidas.estaDisponible(evento,garage)){
             throw new Error("No se puede reservar el vehiculo.");
         }
+        if (!OperacionesInvalidas.eventoValido(evento)){
+            throw new Error("El evento no tiene fechas validas.");
+        }
         garage.getReservas().add(evento);
     }
 
