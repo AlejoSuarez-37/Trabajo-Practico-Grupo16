@@ -1,7 +1,7 @@
-import DisparadorMantenimeinto from "./modif/disparadorMantenimiento";
+import DisparadorMantenimeinto from "./check/disparadorMantenimiento";
 import Evento from "./evento";
 import Garage from "./garage";
-import OperacionesInvalidas from "./modif/operacionesInvalidas";
+import OperacionesInvalidas from "./check/operacionesInvalidas";
 
 
 export default class Cliente {
@@ -15,16 +15,19 @@ export default class Cliente {
         garage.getReservas().add(evento);
     }
 
-    public devolverVehiculo(kilometros: number, evento: Evento, garage: Garage):void {
-        for (const reserva of garage.getReservas()){
-            if (reserva === evento){
-                console.log(reserva.getVehiculo().obtenerTarifaReserva(reserva.getCantDias(),kilometros)+'$');
-                reserva.getVehiculo().getEstado().setNecesitaLimpieza(true);
-                evento.getVehiculo().getEstado().aumentarAlquileresCompletados();
-                evento.getVehiculo().getEstado().sumarKilometrosRecorridos(kilometros);
-                DisparadorMantenimeinto.chequearEstado(evento.getVehiculo(),evento.getFechaFin(),garage);
-                
-            }
+    public devolverVehiculo(kilometros: number, evento: Evento, garage: Garage):number {
+        if (!OperacionesInvalidas.reservaEnReservas(garage,evento)){
+            throw new Error("La reserva no existe.");
         }
+        let tarifa:number = evento.getVehiculo().obtenerTarifaReserva(evento.getCantDias(),kilometros);
+        evento.getVehiculo().getEstado().setNecesitaLimpieza(true);
+        evento.getVehiculo().getEstado().aumentarAlquileresCompletados();
+        evento.getVehiculo().getEstado().sumarKilometrosRecorridos(kilometros);
+
+        evento.getVehiculo().getEstadisticas().sumarAlquiler();
+        evento.getVehiculo().getEstadisticas().sumarRentabilidad(tarifa);
+        
+        DisparadorMantenimeinto.chequearEstado(evento.getVehiculo(),evento.getFechaFin(),garage);
+        return tarifa;
     }
 }

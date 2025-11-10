@@ -27,4 +27,11 @@ export default class OperacionesInvalidas {
         }
         return value;
     }
+    static reservaEnReservas(g: Garage, e: Evento):boolean {
+        let value:boolean = false;
+        if(g.getReservas().has(e)){
+            value = true;
+        }
+        return value;
+    }
 }

@@ -7,9 +7,6 @@ export default class Estado {
     public sumarKilometrosRecorridos(n:number):void {
         this.kilometrosRecorridos += n;
     }
-    public setUltimoMantenimeinto(d:Date):void {
-        this.ultimoMantenimeinto = d;
-    }
     public aumentarAlquileresCompletados():void {
         this.alquileresCompletados++;
     }
@@ -18,6 +15,11 @@ export default class Estado {
     }
     public setNecesitaLimpieza(value:boolean):void {
         this.necesitaLimpieza = value;
+    }
+    public reset(d:Date):void {
+        this.kilometrosRecorridos = 0;
+        this.alquileresCompletados = 0;
+        this.ultimoMantenimeinto = d;
     }
 
     public necesitaMantenimiento(dF:Date):boolean {

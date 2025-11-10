@@ -22,19 +22,10 @@ class Lavanderia {
     + limpiarVehiculo()
 }
 
-class Estado {
-    - kilometrosRecorridos: number
-    - ultimoMantenimiento: Date
-    - alquileresCompletados: number
-    - necesitaLimpieza: boolean
-    
-    + setters_y_getters()
-    + necesitaMantenimiento()
-}
-
 abstract class Vehiculo {
     - matricula: string
     - estado: Estado
+    - estadisticas: Estadisticas
 
     # temporada: Temporada
 
@@ -53,6 +44,31 @@ class SUV {
 
 }
 
+class Estado {
+    - kilometrosRecorridos: number
+    - ultimoMantenimiento: Date
+    - alquileresCompletados: number
+    - necesitaLimpieza: boolean
+    
+    + setters_y_getters()
+    + necesitaMantenimiento()
+}
+
+class Estadisticas {
+    - alquileres: number
+    - rentabilidad: number
+
+    +setters_y_getters()
+}
+
+class Reporte {
+    + vehiculoMasAlquilado()
+    + vehiculoMenosAlquilado()
+    + mayorRentabilidad()
+    + menorRentabilidad()
+    + ocupacionDeLaFlota()
+}
+
 class Evento {
     - fechaInicio: Date
     - fechaFin: Date
@@ -69,9 +85,15 @@ class Calendario {
     static estaDisponibleHoy()
 }
 
+class Radar {
+    static flotaActiva()
+}
+
 class OperacionesInvalidas {
     static estaDisponible()
+    static estaDisponibleHoy()
     static vehiculoEnStock()
+    static reservaEnReservas()
 }
 
 class DisparadorMantenimiento {
@@ -116,9 +138,12 @@ Vehiculo <|-- Sedán
 Vehiculo <|-- SUV
 
 Vehiculo *-r- Temporada
-Vehiculo *-d- Estado
+Vehiculo *-r- Estado
+Vehiculo *-r- Estadisticas
 
 OperacionesInvalidas *-- Calendario
+
+Reporte *-- Radar
 
 
 @enduml

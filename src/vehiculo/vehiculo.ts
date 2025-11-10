@@ -1,10 +1,12 @@
 import { Temporada } from "../temporada/temporada";
 import TemporadaMedia from "../temporada/temporadaMedia";
+import Estadisticas from "./estadisticas";
 import Estado from "./estado";
 
 export default abstract class Vehiculo {
     private matricula: string;
     private estado: Estado = new Estado();
+    private estadisticas: Estadisticas = new Estadisticas();
 
     protected temporada: Temporada = new TemporadaMedia();
 
@@ -17,6 +19,9 @@ export default abstract class Vehiculo {
     }
     public getEstado():Estado {
         return this.estado;
+    }
+    public getEstadisticas():Estadisticas {
+        return this.estadisticas;
     }
     public setTemporada(t:Temporada):void {
         this.temporada = t;

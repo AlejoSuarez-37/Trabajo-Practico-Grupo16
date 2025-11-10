@@ -1,5 +1,5 @@
 import Garage from "./garage";
-import OperacionesInvalidas from "./modif/operacionesInvalidas";
+import OperacionesInvalidas from "./check/operacionesInvalidas";
 import Vehiculo from "./vehiculo/vehiculo";
 
 export default class Lavanderia {
