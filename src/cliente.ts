@@ -1,24 +1,36 @@
-import Calendario from "./calendario";
+import DisparadorMantenimeinto from "./check/disparadorMantenimiento";
 import Evento from "./evento";
 import Garage from "./garage";
-import Vehiculo from "./vehiculo/vehiculo";
+import OperacionesInvalidas from "./check/operacionesInvalidas";
+
 
 export default class Cliente {
     public reservar(evento: Evento, garage: Garage):void {
-        if (!garage.getVehiculos().has(evento.getVehiculo().getMatricula())){
-            throw new Error("No Existe el vehiculo");
+        if (!OperacionesInvalidas.vehiculoEnStock(evento.getVehiculo(),garage)){
+            throw new Error("No Existe el vehiculo.");
         }
-        if (Calendario.revisarCalendario(evento,garage.getReservas()) && Calendario.revisarCalendario(evento,garage.getMantenimientos())){
-            garage.getReservas().add(evento);
+        if (!OperacionesInvalidas.estaDisponible(evento,garage)){
+            throw new Error("No se puede reservar el vehiculo.");
         }
+        if (!OperacionesInvalidas.eventoValido(evento)){
+            throw new Error("El evento no tiene fechas validas.");
+        }
+        garage.getReservas().add(evento);
     }
 
-    public devolverVehiculo(kilometros: number, evento: Evento, garage: Garage):void {
-        for (const reserva of garage.getReservas()){
-            if (reserva === evento){
-                console.log(reserva.getVehiculo().obtenerTarifaReserva(reserva.getCantDias(),kilometros));
-                reserva.getVehiculo().setNecesitaLimpieza(true);
-            }
+    public devolverVehiculo(kilometros: number, evento: Evento, garage: Garage):number {
+        if (!OperacionesInvalidas.reservaEnReservas(garage,evento)){
+            throw new Error("La reserva no existe.");
         }
+        let tarifa:number = evento.getVehiculo().obtenerTarifaReserva(evento.getCantDias(),kilometros);
+        evento.getVehiculo().getEstado().setNecesitaLimpieza(true);
+        evento.getVehiculo().getEstado().aumentarAlquileresCompletados();
+        evento.getVehiculo().getEstado().sumarKilometrosRecorridos(kilometros);
+
+        evento.getVehiculo().getEstadisticas().sumarAlquiler();
+        evento.getVehiculo().getEstadisticas().sumarRentabilidad(tarifa);
+        
+        DisparadorMantenimeinto.chequearEstado(evento.getVehiculo(),evento.getFechaFin(),garage);
+        return tarifa;
     }
 }
