@@ -13,9 +13,6 @@ export default abstract class Estado{
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
     }
-    public setVehiculo(v:Vehiculo):void {
-        this.vehiculo = v;
-    }
     public getFechaInicio():Date {
         return this.fechaInicio;
     }
@@ -32,18 +29,23 @@ export default abstract class Estado{
         return this.mantenimientosPasados;
     }
 
-    public colisiona(set:Set<Estado>, fechaInicio:Date, fechaFin:Date):boolean {
-        set.forEach(value =>{
+    public colisiona(fechaInicio:Date, fechaFin:Date):void {
+        this.reservasPasadas.forEach(value =>{
             if (fechaInicio >= value.getFechaInicio() && fechaInicio <= value.getFechaFin() ||
                 fechaFin <= value.getFechaFin() && fechaFin >= value.getFechaInicio() ||
                 fechaInicio <= value.getFechaInicio() && fechaFin >= value.getFechaFin()){
-                    return true;
+                    throw new Error("El vehiculo esta en reserva.");
             }
         });
-        return false;
+        this.mantenimientosPasados.forEach(value =>{
+            if (fechaInicio >= value.getFechaInicio() && fechaInicio <= value.getFechaFin() ||
+                fechaFin <= value.getFechaFin() && fechaFin >= value.getFechaInicio() ||
+                fechaInicio <= value.getFechaInicio() && fechaFin >= value.getFechaFin()){
+                    throw new Error("El vehiculo esta en mantenimiento.");
+            }
+        });
     }
 
-    
     abstract reservar(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void
     abstract mantener(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void
 }

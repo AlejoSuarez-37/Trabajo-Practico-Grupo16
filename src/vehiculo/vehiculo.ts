@@ -23,8 +23,11 @@ export default abstract class Vehiculo {
     public setEstado(e: Estado):void {
         this.estado = e;
     }
-    public getEstado():Estado {
-        return this.estado;
+    public reservar(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void {
+        this.estado.reservar(v,fechaInicio,fechaFin);
+    }
+    public mantener(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void {
+        this.estado.mantener(v,fechaInicio,fechaFin);
     }
     public sumarKilometrosRecorridos(n:number):void {
         this.kilometrosRecorridos += n;
@@ -77,6 +80,9 @@ export default abstract class Vehiculo {
             this.resetTablero(d);
             this.restarRentabilidad(this.obtenerTarifaMantenimiento(1));
         }
+    }
+    public getReservasPasadas():Set<Estado> {
+        return this.estado.getReservasPasadas();
     }
     
     public abstract obtenerTarifaReserva(dias: number, kilometros: number, temporada: Temporada):number

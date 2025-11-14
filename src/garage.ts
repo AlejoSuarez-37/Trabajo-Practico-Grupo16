@@ -1,4 +1,3 @@
-import Evento from "./evento";
 import { Temporada } from "./temporada/temporada";
 import TemporadaMedia from "./temporada/temporadaMedia";
 import Vehiculo from "./vehiculo/vehiculo";
@@ -42,7 +41,7 @@ export default class Garage {
     public reservar(vehiculo:Vehiculo, fechaInicio:Date, fechaFin:Date, kilometros:number):void {
         this.vehiculoEnStock(vehiculo);
         this.fechasValidas(fechaInicio,fechaFin);
-        vehiculo.getEstado().reservar(vehiculo,fechaInicio,fechaFin);
+        vehiculo.reservar(vehiculo,fechaInicio,fechaFin);
         vehiculo.aumentarAlquileresCompletados();
         vehiculo.sumarKilometrosRecorridos(kilometros);
         vehiculo.sumarAlquiler();
@@ -52,7 +51,7 @@ export default class Garage {
     public mantener(vehiculo:Vehiculo, fechaInicio:Date, fechaFin:Date):void {
         this.vehiculoEnStock(vehiculo);
         this.fechasValidas(fechaInicio,fechaFin);
-        vehiculo.getEstado().mantener(vehiculo,fechaInicio,fechaFin);
+        vehiculo.mantener(vehiculo,fechaInicio,fechaFin);
         vehiculo.restarRentabilidad(vehiculo.obtenerTarifaMantenimiento(this.calcularCantDias(fechaInicio,fechaFin)));
         vehiculo.resetTablero(fechaFin);
     }

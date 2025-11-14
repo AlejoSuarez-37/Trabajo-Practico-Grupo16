@@ -49,7 +49,7 @@ export default class Reporte {
     public ocupacionDeLaFlota(d: Date, g: Garage):number {
         let cuenta:number = 0;
         g.getVehiculos().forEach((vehiculo,key) => {
-            vehiculo.getEstado().getReservasPasadas().forEach(value => {
+            vehiculo.getReservasPasadas().forEach(value => {
                 if (d >= value.getFechaInicio() && d <= value.getFechaFin()){
                     cuenta++;
                 }
