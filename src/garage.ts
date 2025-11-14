@@ -7,7 +7,6 @@ export default class Garage {
     private temporada: Temporada = new TemporadaMedia();
     private vehiculos: Map<string,Vehiculo> = new Map();
     
-
     public comprarVehiculo(vehiculo:Vehiculo):void {
         this.vehiculos.set(vehiculo.getMatricula(), vehiculo);
     }
@@ -48,12 +47,14 @@ export default class Garage {
         vehiculo.sumarKilometrosRecorridos(kilometros);
         vehiculo.sumarAlquiler();
         vehiculo.sumarRentabilidad(vehiculo.obtenerTarifaReserva(this.calcularCantDias(fechaInicio,fechaFin),kilometros,this.temporada));
+        vehiculo.dispararMantenimiento(fechaFin);
     }
     public mantener(vehiculo:Vehiculo, fechaInicio:Date, fechaFin:Date):void {
         this.vehiculoEnStock(vehiculo);
         this.fechasValidas(fechaInicio,fechaFin);
         vehiculo.getEstado().mantener(vehiculo,fechaInicio,fechaFin);
         vehiculo.restarRentabilidad(vehiculo.obtenerTarifaMantenimiento(this.calcularCantDias(fechaInicio,fechaFin)));
+        vehiculo.resetTablero(fechaFin);
     }
 
 }

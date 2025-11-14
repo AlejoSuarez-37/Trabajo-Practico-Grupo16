@@ -32,6 +32,17 @@ export default abstract class Estado{
         return this.mantenimientosPasados;
     }
 
+    public colisiona(set:Set<Estado>, fechaInicio:Date, fechaFin:Date):boolean {
+        set.forEach(value =>{
+            if (fechaInicio >= value.getFechaInicio() && fechaInicio <= value.getFechaFin() ||
+                fechaFin <= value.getFechaFin() && fechaFin >= value.getFechaInicio() ||
+                fechaInicio <= value.getFechaInicio() && fechaFin >= value.getFechaFin()){
+                    return true;
+            }
+        });
+        return false;
+    }
+
     
     abstract reservar(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void
     abstract mantener(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void
