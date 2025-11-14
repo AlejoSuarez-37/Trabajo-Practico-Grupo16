@@ -1,4 +1,4 @@
-import Vehiculo from "./vehiculo/vehiculo"
+import Vehiculo from "./vehiculo/vehiculo";
 
 export default class Evento {
     private fechaInicio: Date;
@@ -6,7 +6,7 @@ export default class Evento {
     private cantDias: number;
     private vehiculo: Vehiculo;
     
-    constructor(fechaInicio: Date, fechaFin: Date, vehiculo: Vehiculo){
+    constructor(fechaInicio:Date, fechaFin:Date, vehiculo:Vehiculo){
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.cantDias = 0;
@@ -16,9 +16,6 @@ export default class Evento {
 
     public getCantDias():number {
         return this.cantDias;
-    }
-    public getVehiculo():Vehiculo {
-        return this.vehiculo;
     }
     public getFechaInicio():Date {
         return this.fechaInicio;

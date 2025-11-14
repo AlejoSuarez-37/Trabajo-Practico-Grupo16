@@ -8,7 +8,7 @@
 # instanciamos un vehiculo y lo compramos
     const v1 = new Compacto("1234");
     garage.comprarVehiculo(v1);
-    
+
 # para reservarlo devemos crear fechas iniciales y finales, crear el evento con el vehiculo y especificar el garage 
     const f1 = new Date(2024, 11, 25);
     const f2 = new Date(2024, 11, 27);
