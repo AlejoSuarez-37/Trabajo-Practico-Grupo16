@@ -1,54 +1,60 @@
-import Radar from "./check/radar";
 import Garage from "./garage";
-import Compacto from "./vehiculo/compacto";
 import Vehiculo from "./vehiculo/vehiculo";
 
 export default class Reporte {
-    public vehiculoMasAlquilado(g: Garage):Vehiculo{
+    public vehiculoMasAlquilado(g: Garage):Vehiculo {
         let mayorNumAlquileres:number = 0;
-        let vehiculoMasAlquileres:Vehiculo = new Compacto("");
+        let vehiculoMasAlquileres:Vehiculo;
         g.getVehiculos().forEach((value,key) => {
-            if(value.getEstadisticas().getAlquileres() > mayorNumAlquileres){
-                mayorNumAlquileres = value.getEstadisticas().getAlquileres();
+            if(value.getAlquileres() > mayorNumAlquileres){
+                mayorNumAlquileres = value.getAlquileres();
                 vehiculoMasAlquileres = value;
             }
-        })
-        return vehiculoMasAlquileres;
+        });
+        return vehiculoMasAlquileres!;
     }
-    public vehiculoMenosAlquilado(g: Garage):Vehiculo{
+    public vehiculoMenosAlquilado(g: Garage):Vehiculo {
         let menorNumAlquileres:number = 0;
-        let vehiculoMenosAlquileres:Vehiculo = new Compacto("");
+        let vehiculoMenosAlquileres:Vehiculo;
         g.getVehiculos().forEach((value,key) => {
-            if(value.getEstadisticas().getAlquileres() < menorNumAlquileres){
-                menorNumAlquileres = value.getEstadisticas().getAlquileres();
+            if(value.getAlquileres() < menorNumAlquileres){
+                menorNumAlquileres = value.getAlquileres();
                 vehiculoMenosAlquileres = value;
             }
-        })
-        return vehiculoMenosAlquileres;
+        });
+        return vehiculoMenosAlquileres!;
     }
-    public vehiculoMayorRentabilidad(g: Garage):Vehiculo{
+    public vehiculoMayorRentabilidad(g: Garage):Vehiculo {
         let mayorRentabilidad:number = 0;
-        let vehiculoMayorRentabilidad:Vehiculo = new Compacto("");
+        let vehiculoMayorRentabilidad:Vehiculo;
         g.getVehiculos().forEach((value,key) => {
-            if(value.getEstadisticas().getRentabilidad() > mayorRentabilidad){
-                mayorRentabilidad = value.getEstadisticas().getRentabilidad();
+            if(value.getRentabilidad() > mayorRentabilidad){
+                mayorRentabilidad = value.getRentabilidad();
                 vehiculoMayorRentabilidad = value;
             }
-        })
-        return vehiculoMayorRentabilidad;
+        });
+        return vehiculoMayorRentabilidad!;
     }
-    public vehiculoMenorRentabilidad(g: Garage){
+    public vehiculoMenorRentabilidad(g: Garage):Vehiculo {
         let menorRentabilidad:number = 0;
-        let vehiculoMenorRentabilidad:Vehiculo = new Compacto("");
+        let vehiculoMenorRentabilidad:Vehiculo;
         g.getVehiculos().forEach((value,key) => {
-            if(value.getEstadisticas().getRentabilidad() < menorRentabilidad){
-                menorRentabilidad = value.getEstadisticas().getRentabilidad();
+            if(value.getRentabilidad() < menorRentabilidad){
+                menorRentabilidad = value.getRentabilidad();
                 vehiculoMenorRentabilidad = value;
             }
-        })
-        return vehiculoMenorRentabilidad;
+        });
+        return vehiculoMenorRentabilidad!;
     }
-    public ocupacionDeLaFlota(d: Date, g: Garage):number{
-        return Radar.flotaActiva(d,g) / g.getVehiculos().size;
+    public ocupacionDeLaFlota(d: Date, g: Garage):number {
+        let cuenta:number = 0;
+        g.getVehiculos().forEach((vehiculo,key) => {
+            vehiculo.getReservasPasadas().forEach(value => {
+                if (d >= value.getFechaInicio() && d <= value.getFechaFin()){
+                    cuenta++;
+                }
+            })
+        });
+        return cuenta / g.getVehiculos().size;
     }
 }

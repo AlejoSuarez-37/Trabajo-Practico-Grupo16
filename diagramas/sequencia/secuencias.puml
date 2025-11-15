@@ -1,0 +1,13 @@
+@startuml
+title Facturacion de una Reserva
+
+Cliente -> Garage:reservar(evento: Evento, garage: Garage)
+
+
+
+Cliente -> Index:devolverVehiculo(kilometros: number, evento: Evento, garage: Garage)
+
+
+
+
+@enduml
