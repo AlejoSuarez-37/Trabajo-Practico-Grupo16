@@ -47,35 +47,35 @@ describe("SUV", () => {
 
     expect(SUVTestTres["necesitaLimpieza"]).toEqual(false);
   });
-  test("comparamos que la tarifa de mantenimiento sea 20 teniendo en cuenta 20 dias para esta prueba",()=>{
+  test("comparamos que la tarifa de mantenimiento sea 30 por dia",()=>{
 
     const SUVTest = new SUV("AAA111");
     let dias:number = 20
-    let tarifaEsperada:number = 400
+    let tarifaEsperada:number = 600
     expect(SUVTest.obtenerTarifaMantenimiento(dias)).toBe(tarifaEsperada);
 
   });
-  test("comprobamos que la tarifa base con menos de 100km por dia es 30 x dia ",()=>{
+  test("comprobamos que la tarifa base con menos de 100km por dia es 15 x dia ",()=>{
 
     const SUVTest = new SUV("AAA111");
-    let dias:number = 30;
+    let dias:number = 20;
     let kilometrosTotales:number = 250;
-    let tarifaEsperada:number = 900;
+    let tarifaEsperada:number = 1900;
 
     expect(SUVTest.obtenerTarifaReserva(dias,kilometrosTotales)).toBe(tarifaEsperada);
 
   });
-    test("comprobamos que la tarifa base con mayor o igual de 100km por dia es 30 x dia mas 0.15 xkm",()=>{
+    test("comprobamos que la tarifa base con mayor o igual de mas de 500km mas 15 por dia sobre la tarifa base mas 0.25 por km",()=>{
 
     const SUVTest = new SUV("AAA111");
-    let dias:number = 30;
+    let dias:number = 20;
     let kilometrosTotales:number = 3000;
-    let tarifaEsperada:number = 1350;
+    let tarifaEsperada:number = 2650;
 
     expect(SUVTest.obtenerTarifaReserva(dias,kilometrosTotales)).toBe(tarifaEsperada);
 
     kilometrosTotales = 50000;
-    tarifaEsperada = 8400;
+    tarifaEsperada = 14400;
 
     expect(SUVTest.obtenerTarifaReserva(dias,kilometrosTotales)).toBe(tarifaEsperada);
   });
