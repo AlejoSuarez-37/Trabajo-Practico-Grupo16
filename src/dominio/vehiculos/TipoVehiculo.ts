@@ -1,0 +1,6 @@
+export enum TipoVehiculo {
+  AUTO_COMPACTO = "AUTO_COMPACTO",
+  AUTO_SEDAN = "AUTO_SEDAN",
+  CAMIONETA_SUV = "CAMIONETA_SUV",
+}
+
