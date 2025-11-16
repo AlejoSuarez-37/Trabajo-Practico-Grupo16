@@ -1,0 +1,11 @@
+@startuml mantener()
+title mantener()
+
+Usuario -> Garage: comprarVehiculo(vehiculo)
+Garage -> Vehiculo: mantener()
+Garage -> Vehiculo: actualizarTableroMantenimientos()
+Vehiculo -> Estado: mantener()
+Estado --> Vehiculo: colisiona()
+Estado -> Vehiculo: registrosMantenimientos()
+
+@enduml

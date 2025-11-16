@@ -1,32 +1,131 @@
 import { Temporada } from "../temporada/temporada";
-import TemporadaMedia from "../temporada/temporadaMedia";
-import Estadisticas from "./estadisticas";
-import Estado from "./estado";
+import Estado from "../estado/estado";
+import Registo from "../registro/registro";
+import RegistoDisponible from "../registro/registroDisponible";
+import RegistoMantenimiento from "../registro/registroMantenimiento";
+import RegistoReserva from "../registro/registroReserva";
+import Disponible from "../estado/disponible";
+import EnReserva from "../estado/enReserva";
+import EnMantenimiento from "../estado/enMantenimiento";
+
 
 export default abstract class Vehiculo {
     private matricula: string;
-    private estado: Estado = new Estado();
-    private estadisticas: Estadisticas = new Estadisticas();
-
-    protected temporada: Temporada = new TemporadaMedia();
+    private estado:Estado;
+    private registroDisponible: Registo;
+    private registroReserva: Registo;
+    private registroMantenimiento: Registo;
+    private kilometrosRecorridos: number = 0;
+    private ultimoMantenimeinto: Date = new Date();
+    private alquileresDesdeMantenimiento: number = 0;
+    private necesitaLimpieza: boolean = false;
+    private alquileresTotales: number = 0;
+    private rentabilidad: number = 0;
 
     constructor(matricula: string){
         this.matricula = matricula;
+        this.estado = new Disponible(this);
+        this.registroDisponible = new RegistoDisponible();
+        this.registroMantenimiento = new RegistoMantenimiento();
+        this.registroReserva = new RegistoReserva();
     }
 
+    public reservar(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void {
+        new EnReserva(this).reservar(this,fechaInicio,fechaFin);
+    }
+    public mantener(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void {
+        new EnMantenimiento(this).mantener(this,fechaInicio,fechaFin);
+    }
     public getMatricula():string {
         return this.matricula;
     }
-    public getEstado():Estado {
-        return this.estado;
+    public colisiona(fechaInicio:Date,fechaFin:Date){
+        this.estado.colisiona(fechaInicio,fechaFin);
     }
-    public getEstadisticas():Estadisticas {
-        return this.estadisticas;
+    public getRegRes():Registo {
+        return this.registroReserva;
     }
-    public setTemporada(t:Temporada):void {
-        this.temporada = t;
+    public getRegMan():Registo {
+        return this.registroMantenimiento;
+    }
+    public getRegDis():Registo {
+        return this.registroDisponible;
+    }
+    public sumarKilometrosRecorridos(n:number):void {
+        this.kilometrosRecorridos += n;
+    }
+    public aumentarAlquileresMantenimiento():void {
+        this.alquileresDesdeMantenimiento++;
+    }
+    public getAlquileresDesdeMantenimiento():number {
+        return this.alquileresDesdeMantenimiento;
+    }
+    public getNecesitaLimpieza():boolean {
+        return this.necesitaLimpieza;
+    }
+    public limpiar():void {
+        this.necesitaLimpieza = false;
+    }
+    public ensuciar():void {
+        this.necesitaLimpieza = true;
+    }
+    public sumarAlquiler():void {
+        this.alquileresTotales++;
+    }
+    public getAlquileres():number {
+        return this.alquileresTotales;
+    }
+    public sumarRentabilidad(n: number):void {
+        this.rentabilidad += n;
+    }
+    public restarRentabilidad(n: number):void {
+        this.rentabilidad -= n;
+    }
+    public getRentabilidad():number {
+        return this.rentabilidad;
+    }
+    public resetTablero(d:Date):void {
+        this.kilometrosRecorridos = 0;
+        this.alquileresDesdeMantenimiento = 0;
+        this.ultimoMantenimeinto = d;
+    }
+    public necesitaMantenimiento(dF:Date):boolean {
+        let value:boolean = false;
+        const dI = this.ultimoMantenimeinto;
+        const diferenciaMeses = (dF.getFullYear()-dI.getFullYear()) * 12 + (dF.getMonth()-dI.getMonth());
+        if (this.kilometrosRecorridos > 10000 ||
+            this.alquileresDesdeMantenimiento >= 5 ||
+            diferenciaMeses > 12){
+            value = true;
+        }
+        return value;
+    }
+    public dispararMantenimiento(d:Date){
+        const d2 = new Date(d);
+        d2.setDate(d2.getDate() + 1);
+        if(this.necesitaMantenimiento(d)){
+            this.mantener(this,d,d2);
+            this.resetTablero(d);
+            this.restarRentabilidad(this.obtenerTarifaMantenimiento(1));
+        }
+    }
+    private calcularCantDias(fechaInicio:Date, fechaFin:Date):number {
+        const diffMiliseg = fechaFin.getTime() - fechaInicio.getTime();
+        return Math.ceil(diffMiliseg / (1000 * 60 * 60 * 24));
+    }
+    public actualizarTableroReserva(fechaInicio:Date, fechaFin:Date, kilometros:number, temporada:Temporada):void {
+        this.aumentarAlquileresMantenimiento();
+        this.sumarKilometrosRecorridos(kilometros);
+        this.sumarAlquiler();
+        this.ensuciar();
+        this.sumarRentabilidad(this.obtenerTarifaReserva(this.calcularCantDias(fechaInicio,fechaFin),kilometros,temporada));
+        this.dispararMantenimiento(fechaFin);
+    }
+    public actualizarTableroMantenimiento(fechaInicio:Date, fechaFin:Date):void {
+        this.restarRentabilidad(this.obtenerTarifaMantenimiento(this.calcularCantDias(fechaInicio,fechaFin)));
+        this.resetTablero(fechaFin);
     }
     
-    public abstract obtenerTarifaReserva(dias: number, kilometros: number):number
+    public abstract obtenerTarifaReserva(dias: number, kilometros: number, temporada: Temporada):number
     public abstract obtenerTarifaMantenimiento(dias: number):number
 }

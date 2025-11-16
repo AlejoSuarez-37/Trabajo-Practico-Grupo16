@@ -1,0 +1,115 @@
+@startuml Diagrama de clases
+class Garage {
+    - vehiculos: Map<string,Vehiculo>;
+    - reservas: Set<Evento>;
+    - mantenimientos: Set<Evento>;
+    
+    + comprarVehiculo(vehiculo: Vehiculo)
+    + setters_y_getters()
+    + cambiarTemporada()
+    + reservar()
+    + mantener()
+}
+
+abstract class Vehiculo {
+    - matricula: string
+    - matricula: string
+    - estado: Estado
+    - registroDisponible: Registo
+    - registroReserva: Registo
+    - registroMantenimiento: Registo
+    - kilometrosRecorridos: number
+    - ultimoMantenimeinto: Date
+    - alquileresDesdeMantenimiento: number
+    - necesitaLimpieza: boolean
+    - alquileresTotales: number
+    - rentabilidad: number
+
+    + setters_y_getters()
+    + reservar()
+    + mantener()
+    + colisiona()
+    + dispararMantenimiento()
+    + actualizarTableroReserva()
+    + actualizarTableroMantenimiento()
+
+    + abstract obtenerTarifa(dias: number, kilometros: number)
+    + abstract obtenerTarifaMantenimiento(dias: number)
+}
+
+class Compacto {
+
+}
+class Sedán {
+
+}
+class SUV {
+
+}
+
+abstract class Estado{
+    # vehiculo: Vehiculo
+    - fechaInicio: Date
+    - fechaFin: Date
+
+    + setContexto()
+    + colisiona()
+
+    + abstract reservar()
+    + abstract mantener()
+}
+
+class Disponible {
+
+}
+class EnReseva {
+
+}
+class EnMantenimiento {
+
+}
+
+class Reporte {
+    + vehiculoMasAlquilado()
+    + vehiculoMenosAlquilado()
+    + mayorRentabilidad()
+    + menorRentabilidad()
+    + ocupacionDeLaFlota()
+}
+
+interface Temporada {
+    modificador:number
+}
+class TemporadaBaja implements Temporada{
+    modificador:number
+}
+class TemporadaMedia implements Temporada{
+    modificador:number  
+}
+class TemporadaAlta implements Temporada{
+    modificador:number
+}
+
+
+' Relaciones
+
+
+Garage *-d- Vehiculo
+
+Vehiculo <|-- Compacto
+Vehiculo <|-- Sedán
+Vehiculo <|-- SUV
+
+Vehiculo *-r- Temporada
+Vehiculo *-l- Estado
+
+Estado <|-- Disponible
+Estado <|-- EnReseva
+Estado <|-- EnMantenimiento
+
+Reporte *-r- Garage
+
+
+
+
+@enduml
