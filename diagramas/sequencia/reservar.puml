@@ -1,0 +1,11 @@
+@startuml reservar()
+title reservar()
+
+Usuario -> Garage: comprarVehiculo()
+Garage -> Vehiculo: reservar()
+Garage -> Vehiculo: actualizarTableroReservas()
+Vehiculo -> Estado: reservar()
+Estado --> Vehiculo: colisiona()
+Estado -> Vehiculo: registrosReservas()
+
+@enduml
