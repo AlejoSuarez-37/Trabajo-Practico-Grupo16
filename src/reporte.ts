@@ -9,6 +9,7 @@ import Vehiculo from "./vehiculo/vehiculo";
  * más/menos rentables y el nivel de ocupación de la flota.
  */
 
+
 export default class Reporte {
     /**
      * Obtiene el vehículo con mayor cantidad de alquileres realizados.
@@ -25,6 +26,7 @@ export default class Reporte {
                 vehiculoMasAlquileres = value;
             }
         });
+
         return vehiculoMasAlquileres!;
     }
     /**
@@ -46,6 +48,7 @@ export default class Reporte {
                 vehiculoMenosAlquileres = value;
             }
         });
+
         return vehiculoMenosAlquileres!;
     }
     /**
@@ -63,6 +66,7 @@ export default class Reporte {
                 vehiculoMayorRentabilidad = value;
             }
         });
+
         return vehiculoMayorRentabilidad!;
     }
     /**
@@ -80,6 +84,7 @@ export default class Reporte {
                 vehiculoMenorRentabilidad = value;
             }
         });
+
         return vehiculoMenorRentabilidad!;
     }
     /**
@@ -95,7 +100,7 @@ export default class Reporte {
                 if(value.colisionaReservas(d,d)){
                     cuenta++;
                 }
-            })
+            });
         });
         return cuenta;
     }
