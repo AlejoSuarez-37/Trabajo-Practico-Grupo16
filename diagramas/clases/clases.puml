@@ -7,29 +7,32 @@ class Garage {
     + comprarVehiculo(vehiculo: Vehiculo)
     + setters_y_getters()
     + cambiarTemporada()
-}
-
-class Cliente {
     + reservar()
-    + devolverVehiculo()
-}
-
-class Mecanico {
-    + realizarMantenimiento()
-}
-
-class Lavanderia {
-    + limpiarVehiculo()
+    + mantener()
 }
 
 abstract class Vehiculo {
     - matricula: string
+    - matricula: string
     - estado: Estado
-    - estadisticas: Estadisticas
-
-    # temporada: Temporada
+    - registroDisponible: Registo
+    - registroReserva: Registo
+    - registroMantenimiento: Registo
+    - kilometrosRecorridos: number
+    - ultimoMantenimeinto: Date
+    - alquileresDesdeMantenimiento: number
+    - necesitaLimpieza: boolean
+    - alquileresTotales: number
+    - rentabilidad: number
 
     + setters_y_getters()
+    + reservar()
+    + mantener()
+    + colisiona()
+    + dispararMantenimiento()
+    + actualizarTableroReserva()
+    + actualizarTableroMantenimiento()
+
     + abstract obtenerTarifa(dias: number, kilometros: number)
     + abstract obtenerTarifaMantenimiento(dias: number)
 }
@@ -44,21 +47,26 @@ class SUV {
 
 }
 
-class Estado {
-    - kilometrosRecorridos: number
-    - ultimoMantenimiento: Date
-    - alquileresCompletados: number
-    - necesitaLimpieza: boolean
-    
-    + setters_y_getters()
-    + necesitaMantenimiento()
+abstract class Estado{
+    # vehiculo: Vehiculo
+    - fechaInicio: Date
+    - fechaFin: Date
+
+    + setContexto()
+    + colisiona()
+
+    + abstract reservar()
+    + abstract mantener()
 }
 
-class Estadisticas {
-    - alquileres: number
-    - rentabilidad: number
+class Disponible {
 
-    +setters_y_getters()
+}
+class EnReseva {
+
+}
+class EnMantenimiento {
+
 }
 
 class Reporte {
@@ -69,82 +77,39 @@ class Reporte {
     + ocupacionDeLaFlota()
 }
 
-class Evento {
-    - fechaInicio: Date
-    - fechaFin: Date
-    - cant_dias: number
-    - vehiculo: Vehiculo
-
-    + setters_y_getters()
-
-    - calcularCantDias()
-}
-
-class Calendario {
-    static revisarCalendario()
-    static estaDisponibleHoy()
-}
-
-class Radar {
-    static flotaActiva()
-}
-
-class OperacionesInvalidas {
-    static estaDisponible()
-    static estaDisponibleHoy()
-    static vehiculoEnStock()
-    static reservaEnReservas()
-    static eventoValido()
-}
-
-class DisparadorMantenimiento {
-    static chequearVehiculo()
-}
-
 interface Temporada {
     modificador:number
-    + abstract getModificador()
 }
 class TemporadaBaja implements Temporada{
-    # modificador:number
-    + getModificador()
+    modificador:number
 }
 class TemporadaMedia implements Temporada{
-    # modificador:number
-    + getModificador()
+    modificador:number  
 }
 class TemporadaAlta implements Temporada{
-    # modificador:number
-    + getModificador()
+    modificador:number
 }
 
 
 ' Relaciones
 
 
-Cliente *-- Garage
-
-Cliente *-r- DisparadorMantenimiento
-
-Mecanico *-r- Garage
-Lavanderia *-l- Garage
-
 Garage *-d- Vehiculo
-Garage *-d- Evento
-
-Evento *-r- Vehiculo
 
 Vehiculo <|-- Compacto
 Vehiculo <|-- Sedán
 Vehiculo <|-- SUV
 
 Vehiculo *-r- Temporada
-Vehiculo *-r- Estado
-Vehiculo *-r- Estadisticas
+Vehiculo *-l- Estado
 
-OperacionesInvalidas *-- Calendario
+Estado <|-- Disponible
+Estado <|-- EnReseva
+Estado <|-- EnMantenimiento
 
-Reporte *-- Radar
+Reporte *-r- Garage
+
+
 
 
 @enduml
