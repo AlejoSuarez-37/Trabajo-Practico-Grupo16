@@ -22,7 +22,7 @@ export default class Garage {
     }
     private vehiculoEnStock(v:Vehiculo):void {
         if(!this.vehiculos.has(v.getMatricula())){
-            throw new Error("El vehiculo no existe.")
+            throw new Error("El vehiculo no existe.");
         }
     }
 
@@ -38,5 +38,4 @@ export default class Garage {
         vehiculo.mantener(vehiculo,fechaInicio,fechaFin);
         vehiculo.actualizarTableroMantenimiento(fechaInicio,fechaFin);
     }
-
 }

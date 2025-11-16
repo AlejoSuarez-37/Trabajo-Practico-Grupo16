@@ -6,7 +6,7 @@ export default class Reporte {
         let mayorNumAlquileres:number = 0;
         let vehiculoMasAlquileres:Vehiculo;
         g.getVehiculos().forEach((value,key) => {
-            if(value.getAlquileres() > mayorNumAlquileres){
+            if(value.getAlquileres() >= mayorNumAlquileres){
                 mayorNumAlquileres = value.getAlquileres();
                 vehiculoMasAlquileres = value;
             }
@@ -17,7 +17,7 @@ export default class Reporte {
         let menorNumAlquileres:number = 0;
         let vehiculoMenosAlquileres:Vehiculo;
         g.getVehiculos().forEach((value,key) => {
-            if(value.getAlquileres() < menorNumAlquileres){
+            if(value.getAlquileres() <= menorNumAlquileres){
                 menorNumAlquileres = value.getAlquileres();
                 vehiculoMenosAlquileres = value;
             }
@@ -28,7 +28,7 @@ export default class Reporte {
         let mayorRentabilidad:number = 0;
         let vehiculoMayorRentabilidad:Vehiculo;
         g.getVehiculos().forEach((value,key) => {
-            if(value.getRentabilidad() > mayorRentabilidad){
+            if(value.getRentabilidad() >= mayorRentabilidad){
                 mayorRentabilidad = value.getRentabilidad();
                 vehiculoMayorRentabilidad = value;
             }
@@ -39,7 +39,7 @@ export default class Reporte {
         let menorRentabilidad:number = 0;
         let vehiculoMenorRentabilidad:Vehiculo;
         g.getVehiculos().forEach((value,key) => {
-            if(value.getRentabilidad() < menorRentabilidad){
+            if(value.getRentabilidad() <= menorRentabilidad){
                 menorRentabilidad = value.getRentabilidad();
                 vehiculoMenorRentabilidad = value;
             }
@@ -49,12 +49,12 @@ export default class Reporte {
     public ocupacionDeLaFlota(d: Date, g: Garage):number {
         let cuenta:number = 0;
         g.getVehiculos().forEach((vehiculo,key) => {
-            vehiculo.getReservasPasadas().forEach(value => {
-                if (d >= value.getFechaInicio() && d <= value.getFechaFin()){
+            vehiculo.getRegRes().getRegistro().forEach(value => {
+                if(value.colisionaReservas(d,d)){
                     cuenta++;
                 }
             })
         });
-        return cuenta / g.getVehiculos().size;
+        return cuenta;
     }
 }

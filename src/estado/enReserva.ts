@@ -5,12 +5,17 @@ import Estado from "./estado";
 export default class EnReserva extends Estado {
     public reservar(v:Vehiculo, fechaInicio:Date, fechaFin:Date): void {
         this.colisiona(fechaInicio,fechaFin);
-        this.getReservasPasadas().add(this);
-        v.setEstado(new EnReserva(this.vehiculo,fechaInicio,fechaFin));
+        this.vehiculo.getRegRes().getRegistro().add(this);
+        this.setContexto(this.vehiculo,fechaInicio,fechaFin);
     }
     public mantener(v:Vehiculo, fechaInicio:Date, fechaFin:Date): void {
         this.colisiona(fechaInicio,fechaFin);
-        this.getReservasPasadas().add(this);
-        v.setEstado(new EnMantenimiento(this.vehiculo,fechaInicio,fechaFin)); 
+        this.vehiculo.getRegRes().getRegistro().add(this);
+        this.setContexto(this.vehiculo,fechaInicio,fechaFin);
+    }
+    public getEstado(d:Date) {
+        if(d >= this.getFechaInicio() && d <= this.getFechaFin()){
+            return this;
+        }
     }
 }
