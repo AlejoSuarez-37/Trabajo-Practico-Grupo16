@@ -26,5 +26,11 @@ describe("tests sobre el garage", () => {
         gar.comprarVehiculo(v1);
         gar.mantener(v1,new Date(2024,10,10),new Date(2024,10,15));
         expect(v1.getRegMan().getRegistro().size).toBe(1);
+    });
+    it("", () => {
+        gar.comprarVehiculo(v1);
+        gar.reservar(v1,new Date(2024,10,10),new Date(2024,10,15),100);
+        gar.reservar(v1,new Date(2024,10,20),new Date(2024,10,25),100);
+        gar.mantener(v1,new Date(2024,10,1),new Date(2024,10,3));
     })
 })

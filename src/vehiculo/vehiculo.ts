@@ -30,11 +30,15 @@ export default abstract class Vehiculo {
         this.registroReserva = new RegistoReserva();
     }
 
-    public reservar(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void {
-        new EnReserva(this).reservar(this,fechaInicio,fechaFin);
+    public reservar(fechaInicio:Date, fechaFin:Date):void {
+        let aux = new EnReserva(this);
+        aux.reservar(fechaInicio,fechaFin);
+        this.estado = aux;
     }
-    public mantener(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void {
-        new EnMantenimiento(this).mantener(this,fechaInicio,fechaFin);
+    public mantener(fechaInicio:Date, fechaFin:Date):void {
+        let aux = new EnMantenimiento(this);
+        aux.mantener(fechaInicio,fechaFin);
+        this.estado = aux;
     }
     public getMatricula():string {
         return this.matricula;
@@ -104,7 +108,7 @@ export default abstract class Vehiculo {
         const d2 = new Date(d);
         d2.setDate(d2.getDate() + 1);
         if(this.necesitaMantenimiento(d)){
-            this.mantener(this,d,d2);
+            this.mantener(d,d2);
             this.resetTablero(d);
             this.restarRentabilidad(this.obtenerTarifaMantenimiento(1));
         }
