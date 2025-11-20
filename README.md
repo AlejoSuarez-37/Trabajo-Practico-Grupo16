@@ -1,6 +1,5 @@
-# creamos clases Garage y reporte
+# creamos clase Garage
     const garage = new Garage();
-    const reporte = new Reporte();
 
 # instanciamos un vehiculo y lo compramos
     const v1 = new Compacto("1234");
@@ -16,9 +15,6 @@
     const f4 = new Date(2024, 11, 26);
     garage.mantener(v1, f1, f2)
 
-# para hacer un reporte especificamos el garage
-    reporte.vehiculoMasAlquilado(garage);
-
-# para saber la ocupacion de la flota especificamos el garage y una fecha
-    reporte.ocupacionDeLaFlota(new Date(2024, 11, 26),garage);
-
+# para hacer un reporte creamos la calse del reporte deseado y especificamos el garage 
+    let reporte = new VehiculoMasAlquilado();
+    reporte.analizar(garage);

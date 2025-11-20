@@ -1,5 +1,3 @@
-import Estado from "../src/estado/estado";
-import Disponible from "../src/estado/disponible"
 import TemporadaMedia from "../src/temporada/temporadaMedia";
 import Compacto from "../src/vehiculo/compacto";
 import Sedan from "../src/vehiculo/sedán";

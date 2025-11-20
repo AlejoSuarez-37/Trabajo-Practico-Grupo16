@@ -1,8 +1,4 @@
-import Disponible from "../src/estado/disponible";
-import Estado from "../src/estado/estado";
-import Compacto from "../src/vehiculo/compacto";
-import Sedán from "../src/vehiculo/sedán";
-import SUV from "../src/vehiculo/suv";
+import Compacto from "../src/vehiculo/compacto"
 import Garage from "../src/garage"
 
 describe("tests sobre el garage", () => {
