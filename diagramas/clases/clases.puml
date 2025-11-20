@@ -69,13 +69,20 @@ class EnMantenimiento {
 
 }
 
-class Reporte {
-    + vehiculoMasAlquilado()
-    + vehiculoMenosAlquilado()
-    + mayorRentabilidad()
-    + menorRentabilidad()
-    + ocupacionDeLaFlota()
+
+interface Reporte {
+    analizar(garage:Garage):Vehiculo
 }
+class VehiculoMasAlquilado implements Reporte {}
+class VehiculoMenosAlquilado implements Reporte {}
+class VehiculoMayorRentabilidad implements Reporte {}
+class VehiculoMenorRentabilidad implements Reporte {}
+
+interface OcupacionFlotaI {
+    analizar(d: Date, garage: Garage):number
+}
+class OcupacionFlota implements OcupacionFlotaI {}
+
 
 interface Temporada {
     modificador:number
@@ -106,10 +113,5 @@ Vehiculo *-l- Estado
 Estado <|-- Disponible
 Estado <|-- EnReseva
 Estado <|-- EnMantenimiento
-
-Reporte *-r- Garage
-
-
-
 
 @enduml

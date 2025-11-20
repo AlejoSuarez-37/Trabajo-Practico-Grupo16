@@ -53,6 +53,6 @@ export default abstract class Estado{
         return false;
     }
 
-    abstract reservar(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void
-    abstract mantener(v:Vehiculo, fechaInicio:Date, fechaFin:Date):void
+    abstract reservar(fechaInicio:Date, fechaFin:Date):void
+    abstract mantener(fechaInicio:Date, fechaFin:Date):void
 }
