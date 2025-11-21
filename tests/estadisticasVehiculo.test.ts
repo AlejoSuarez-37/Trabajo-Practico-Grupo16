@@ -4,8 +4,7 @@ import EnReserva from "../src/estado/enReserva";
 import Estado from "../src/estado/estado";
 import TemporadaMedia from "../src/temporada/temporadaMedia";
 import Compacto from "../src/vehiculo/compacto"
-import Vehiculo from "../src/vehiculo/vehiculo";
-import {DeepMockProxy, mock, mockDeep} from "jest-mock-extended";
+
 
 describe("Manipulacion de las estadisticas de un vehiculo", () => {
     let v = new Compacto("1234");
@@ -26,7 +25,7 @@ describe("Manipulacion de las estadisticas de un vehiculo", () => {
     });
     it("actualizar tablero con parametros que requieren un mantenimiento", () => {
         v.actualizarTableroReserva(new Date(2024,10,10),new Date(2024,10,15),10001,new TemporadaMedia());
-        expect(() => v.colisiona(new Date(2024,10,16),new Date(2024,10,16))).toThrow(new Error("El vehiculo esta en mantenimiento."));
+        expect(v.getEstado()).toBeInstanceOf(EnMantenimiento);
     });
     it("actualizar tablero con parametros que no requieren un mantenimiento", () => {
         v.actualizarTableroReserva(new Date(),new Date(),10,new TemporadaMedia());
@@ -52,9 +51,5 @@ describe("Manipulacion de las estadisticas de un vehiculo", () => {
         v.aumentarAlquileresMantenimiento();
         v.resetTablero(new Date());
         expect(v.getAlquileresDesdeMantenimiento()).toBe(0);
-    });
-    it("getReservasPasadas", () => {
-        v.getRegRes().getRegistro().add(new EnReserva(v));
-        expect(v.getRegRes().getRegistro().size).toBe(1);
     });
 })

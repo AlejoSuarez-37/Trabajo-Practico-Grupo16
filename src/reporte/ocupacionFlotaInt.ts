@@ -1,5 +1,5 @@
 import Garage from "../garage";
 
-export interface OcupacionDeLaFlotaI {
-    analizar(d: Date, garage: Garage):number
+export interface OcupacionFlotaI {
+    analizar(garage:Garage,fecha:Date):number
 }
