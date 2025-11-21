@@ -2,6 +2,8 @@ import Garage from "../src/garage"
 import Compacto from "../src/vehiculo/compacto";
 import VehiculoMasAlquilado from "../src/reporte/vehiculoMasAlquilado"
 import VehiculoMenosAlquilado from "../src/reporte/vehiculoMenosAlquilado"
+import OcupacionFlota from "../src/reporte/ocupacionFlota"
+import VehiculoMayorRentabilidad from "../src/reporte/vehiculoMayorRentabilidad"
 
 describe("tests sobre reportes", () => {
     let gar = new Garage();
@@ -27,5 +29,13 @@ describe("tests sobre reportes", () => {
     it("VehiculoMasAlquilado", () => {
         let repo = new VehiculoMenosAlquilado();
         expect(repo.analizar(gar)).toBe("567");
+    });
+    it("", () => {
+        let repo = new VehiculoMayorRentabilidad();
+        expect(repo.analizar(gar)).toBe("123");
+    });
+    it("OcupacionFlota", () => {
+        let repo = new OcupacionFlota();
+        expect(repo.analizar(gar,new Date(2024,10,2))).toBe(2);
     });
 })

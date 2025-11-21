@@ -6,12 +6,7 @@ export default abstract class Estado{
     private fechaInicio: Date;
     private fechaFin: Date;
 
-    constructor(v:Vehiculo){
-        this.fechaInicio = new Date();
-        this.fechaFin = new Date();
-        this.vehiculo = v;
-    }
-    public setContexto(v:Vehiculo,fechaInicio:Date,fechaFin:Date):void {
+    constructor(v:Vehiculo,fechaInicio:Date,fechaFin:Date){
         this.vehiculo = v;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -26,31 +21,11 @@ export default abstract class Estado{
         return this.vehiculo;
     }
     
-    public colisiona(fechaInicio:Date, fechaFin:Date):void {
-        this.vehiculo.getRegRes().getRegistro().forEach(value =>{
-            if (fechaInicio >= value.getFechaInicio() && fechaInicio <= value.getFechaFin() ||
-                fechaFin <= value.getFechaFin() && fechaFin >= value.getFechaInicio() ||
-                fechaInicio <= value.getFechaInicio() && fechaFin >= value.getFechaFin()){
-                    throw new Error("El vehiculo esta en reserva.");
-            }
-        });
-        this.vehiculo.getRegMan().getRegistro().forEach(value =>{
-            if (fechaInicio >= value.getFechaInicio() && fechaInicio <= value.getFechaFin() ||
-                fechaFin <= value.getFechaFin() && fechaFin >= value.getFechaInicio() ||
-                fechaInicio <= value.getFechaInicio() && fechaFin >= value.getFechaFin()){
-                    throw new Error("El vehiculo esta en mantenimiento.");
-            }
-        });
-    }
-    public colisionaReservas(fechaInicio:Date,fechaFin:Date):boolean {
-        this.vehiculo.getRegRes().getRegistro().forEach(value =>{
-            if (fechaInicio >= value.getFechaInicio() && fechaInicio <= value.getFechaFin() ||
-                fechaFin <= value.getFechaFin() && fechaFin >= value.getFechaInicio() ||
-                fechaInicio <= value.getFechaInicio() && fechaFin >= value.getFechaFin()){
-                    return true;
-            }
-        });
-        return false;
+    public colisiona(fechaInicio:Date, fechaFin:Date):boolean {
+        if(fechaInicio >= this.fechaFin && fechaFin >= this.fechaFin){
+            return false;
+        }
+        return true;
     }
 
     abstract reservar(fechaInicio:Date, fechaFin:Date):void
