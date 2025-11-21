@@ -1,20 +1,16 @@
 import { Temporada } from "../temporada/temporada";
 import Estado from "../estado/estado";
-import Registo from "../registro/registro";
-import RegistoDisponible from "../registro/registroDisponible";
-import RegistoMantenimiento from "../registro/registroMantenimiento";
-import RegistoReserva from "../registro/registroReserva";
 import Disponible from "../estado/disponible";
 import EnReserva from "../estado/enReserva";
 import EnMantenimiento from "../estado/enMantenimiento";
+import Registo from "../registro/registro";
+import RegistroReserva from "../registro/registroReserva";
 
 
 export default abstract class Vehiculo {
     private matricula: string;
     private estado:Estado;
-    private registroDisponible: Registo;
     private registroReserva: Registo;
-    private registroMantenimiento: Registo;
     private kilometrosRecorridos: number = 0;
     private ultimoMantenimeinto: Date = new Date();
     private alquileresDesdeMantenimiento: number = 0;
@@ -24,21 +20,15 @@ export default abstract class Vehiculo {
 
     constructor(matricula: string){
         this.matricula = matricula;
-        this.estado = new Disponible(this);
-        this.registroDisponible = new RegistoDisponible();
-        this.registroMantenimiento = new RegistoMantenimiento();
-        this.registroReserva = new RegistoReserva();
+        this.estado = new Disponible(this,new Date(),new Date());
+        this.registroReserva = new RegistroReserva();
     }
 
-    public reservar(fechaInicio:Date, fechaFin:Date):void {
-        let aux = new EnReserva(this);
-        aux.reservar(fechaInicio,fechaFin);
-        this.estado = aux;
+    public cambiarEstado(estado:Estado):void {
+        this.estado = estado;
     }
-    public mantener(fechaInicio:Date, fechaFin:Date):void {
-        let aux = new EnMantenimiento(this);
-        aux.mantener(fechaInicio,fechaFin);
-        this.estado = aux;
+    public getEstado():Estado {
+        return this.estado;
     }
     public getMatricula():string {
         return this.matricula;
@@ -46,14 +36,8 @@ export default abstract class Vehiculo {
     public colisiona(fechaInicio:Date,fechaFin:Date){
         this.estado.colisiona(fechaInicio,fechaFin);
     }
-    public getRegRes():Registo {
+    public getRegistroReserva():Registo {
         return this.registroReserva;
-    }
-    public getRegMan():Registo {
-        return this.registroMantenimiento;
-    }
-    public getRegDis():Registo {
-        return this.registroDisponible;
     }
     public sumarKilometrosRecorridos(n:number):void {
         this.kilometrosRecorridos += n;
@@ -108,7 +92,7 @@ export default abstract class Vehiculo {
         const d2 = new Date(d);
         d2.setDate(d2.getDate() + 1);
         if(this.necesitaMantenimiento(d)){
-            this.mantener(d,d2);
+            this.estado.mantener(d,d2);
             this.resetTablero(d);
             this.restarRentabilidad(this.obtenerTarifaMantenimiento(1));
         }

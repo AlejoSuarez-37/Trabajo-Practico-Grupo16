@@ -40,7 +40,7 @@ export default class Garage {
     public reservar(vehiculo:Vehiculo, fechaInicio:Date, fechaFin:Date, kilometros:number):void {
         this.vehiculoEnStock(vehiculo);
         this.fechasValidas(fechaInicio,fechaFin);
-        vehiculo.reservar(fechaInicio,fechaFin);
+        vehiculo.getEstado().reservar(fechaInicio,fechaFin);
         vehiculo.actualizarTableroReserva(fechaInicio,fechaFin,kilometros,this.temporada);
     }
     /**
@@ -52,7 +52,7 @@ export default class Garage {
     public mantener(vehiculo:Vehiculo, fechaInicio:Date, fechaFin:Date):void {
         this.vehiculoEnStock(vehiculo);
         this.fechasValidas(fechaInicio,fechaFin);
-        vehiculo.mantener(fechaInicio,fechaFin);
+        vehiculo.getEstado().mantener(fechaInicio,fechaFin);
         vehiculo.actualizarTableroMantenimiento(fechaInicio,fechaFin);
     }
 }

@@ -15,9 +15,7 @@ abstract class Vehiculo {
     - matricula: string
     - matricula: string
     - estado: Estado
-    - registroDisponible: Registo
     - registroReserva: Registo
-    - registroMantenimiento: Registo
     - kilometrosRecorridos: number
     - ultimoMantenimeinto: Date
     - alquileresDesdeMantenimiento: number
@@ -36,7 +34,6 @@ abstract class Vehiculo {
     + abstract obtenerTarifa(dias: number, kilometros: number)
     + abstract obtenerTarifaMantenimiento(dias: number)
 }
-
 class Compacto {
 
 }
@@ -58,7 +55,6 @@ abstract class Estado{
     + abstract reservar()
     + abstract mantener()
 }
-
 class Disponible {
 
 }
@@ -69,6 +65,11 @@ class EnMantenimiento {
 
 }
 
+abstract class Registro {
+    # registro: Set<Estado>
+    + abstract getRegistro():Set<Estado>
+}
+class RegistroReserva {}
 
 interface Reporte {
     analizar(garage:Garage):Vehiculo
@@ -79,7 +80,7 @@ class VehiculoMayorRentabilidad implements Reporte {}
 class VehiculoMenorRentabilidad implements Reporte {}
 
 interface OcupacionFlotaI {
-    analizar(d: Date, garage: Garage):number
+    analizar(garage:Garage,fecha:Date):number
 }
 class OcupacionFlota implements OcupacionFlotaI {}
 
@@ -102,16 +103,19 @@ class TemporadaAlta implements Temporada{
 
 
 Garage *-d- Vehiculo
+Garage *-- Temporada
 
 Vehiculo <|-- Compacto
 Vehiculo <|-- Sedán
 Vehiculo <|-- SUV
 
-Vehiculo *-r- Temporada
 Vehiculo *-l- Estado
+Vehiculo *-r- Registro
 
 Estado <|-- Disponible
 Estado <|-- EnReseva
 Estado <|-- EnMantenimiento
+
+Registro <|-- RegistroReserva
 
 @enduml
