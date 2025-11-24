@@ -33,9 +33,8 @@ export default abstract class Vehiculo {
     public getMatricula():string {
         return this.matricula;
     }
-    public colisiona(fechaInicio:Date,fechaFin:Date){
-        this.estado.colisiona(fechaInicio,fechaFin);
-    }
+    
+
     public getRegistroReserva():Registo {
         return this.registroReserva;
     }
@@ -72,6 +71,8 @@ export default abstract class Vehiculo {
     public getRentabilidad():number {
         return this.rentabilidad;
     }
+
+
     public resetTablero(d:Date):void {
         this.kilometrosRecorridos = 0;
         this.alquileresDesdeMantenimiento = 0;

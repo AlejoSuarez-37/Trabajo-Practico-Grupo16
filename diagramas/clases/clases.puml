@@ -9,6 +9,7 @@ class Garage {
     + cambiarTemporada()
     + reservar()
     + mantener()
+    + devolver()
 }
 
 abstract class Vehiculo {
@@ -24,14 +25,12 @@ abstract class Vehiculo {
     - rentabilidad: number
 
     + setters_y_getters()
-    + reservar()
-    + mantener()
-    + colisiona()
+
     + dispararMantenimiento()
     + actualizarTableroReserva()
     + actualizarTableroMantenimiento()
 
-    + abstract obtenerTarifa(dias: number, kilometros: number)
+    + abstract obtenerTarifaReserva(dias: number, kilometros: number)
     + abstract obtenerTarifaMantenimiento(dias: number)
 }
 class Compacto {
@@ -54,6 +53,7 @@ abstract class Estado{
 
     + abstract reservar()
     + abstract mantener()
+    + abstract devolver()
 }
 class Disponible {
 
