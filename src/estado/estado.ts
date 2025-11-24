@@ -30,4 +30,5 @@ export default abstract class Estado{
 
     abstract reservar(fechaInicio:Date, fechaFin:Date):void
     abstract mantener(fechaInicio:Date, fechaFin:Date):void
+    abstract devolver():void
 }

@@ -7,20 +7,21 @@ describe("tests sobre clase estado y sus hijas", () => {
     beforeEach(() => {v = new Compacto("1234")});
 
     it("reservar", () => {
-        v.getEstado().reservar(new Date(2024,10,10),new Date(2024,10,15));
+        v.getEstado().reservar(new Date(2026,10,10),new Date(2026,10,15));
         expect(v.getEstado()).toBeInstanceOf(EnReserva);
     });
     it("mantener", () => {
-        v.getEstado().mantener(new Date(2024,10,17),new Date(2024,15,19));
+        v.getEstado().mantener(new Date(2026,10,17),new Date(2026,15,19));
         expect(v.getEstado()).toBeInstanceOf(EnMantenimiento);
     });
     it("cambio de estado en secuencia sin errores", () => {
-        v.getEstado().reservar(new Date(2024,10,10),new Date(2024,10,12));
-        v.getEstado().mantener(new Date(2024,10,15),new Date(2024,10,20));
+        v.getEstado().reservar(new Date(2026,10,10),new Date(2026,10,12));
+        v.getEstado().devolver();
+        v.getEstado().mantener(new Date(2026,10,15),new Date(2026,10,20));
         expect(v.getEstado()).toBeInstanceOf(EnMantenimiento);
     });
     it("cambio de secuencia con errores", () => {
-        v.getEstado().reservar(new Date(2024,10,10),new Date(2024,10,12));
-        expect(() => v.getEstado().mantener(new Date(2024,10,10),new Date(2024,10,12))).toThrow(new Error("El vehiculo esta en reserva."));
+        v.getEstado().reservar(new Date(2026,10,10),new Date(2026,10,12));
+        expect(() => v.getEstado().mantener(new Date(2026,10,10),new Date(2026,10,12))).toThrow(new Error("El vehiculo esta en reserva."));
     });
 })

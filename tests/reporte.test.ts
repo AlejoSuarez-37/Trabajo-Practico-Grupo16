@@ -18,9 +18,10 @@ describe("tests sobre reportes", () => {
         gar.comprarVehiculo(v1);
         gar.comprarVehiculo(v2);
         gar.comprarVehiculo(v3);
-        gar.reservar(v1,new Date(2024,10,1),new Date(2024,10,5),100);
-        gar.reservar(v1,new Date(2024,10,10),new Date(2024,10,15),100);
-        gar.reservar(v2,new Date(2024,10,1),new Date(2024,10,5),100);
+        gar.reservar(v1,new Date(2026,10,1),new Date(2026,10,5),100);
+        gar.devolver(v1);
+        gar.reservar(v1,new Date(2026,10,10),new Date(2026,10,15),100);
+        gar.reservar(v2,new Date(2026,10,1),new Date(2026,10,5),100);
     });
     it("VehiculoMasAlquilado", () => {
         let repo = new VehiculoMasAlquilado();
@@ -36,6 +37,6 @@ describe("tests sobre reportes", () => {
     });
     it("OcupacionFlota", () => {
         let repo = new OcupacionFlota();
-        expect(repo.analizar(gar,new Date(2024,10,2))).toBe(2);
+        expect(repo.analizar(gar,new Date(2026,10,2))).toBe(2);
     });
 })

@@ -2,6 +2,7 @@ import Compacto from "../src/vehiculo/compacto"
 import Garage from "../src/garage"
 import EnReserva from "../src/estado/enReserva";
 import EnMantenimiento from "../src/estado/enMantenimiento";
+import Disponible from "../src/estado/disponible";
 
 describe("tests sobre el garage", () => {
     let v1 = new Compacto("1234");
@@ -17,17 +18,18 @@ describe("tests sobre el garage", () => {
     });
     it("reservar", () => {
         gar.comprarVehiculo(v1);
-        gar.reservar(v1,new Date(2024,10,10),new Date(2024,10,15),100);
+        gar.reservar(v1,new Date(2026,10,10),new Date(2026,10,15),100);
         expect(v1.getEstado()).toBeInstanceOf(EnReserva);
     });
     it("mantener", () => {
         gar.comprarVehiculo(v1);
-        gar.mantener(v1,new Date(2024,10,10),new Date(2024,10,15));
+        gar.mantener(v1,new Date(2026,10,10),new Date(2026,10,15));
         expect(v1.getEstado()).toBeInstanceOf(EnMantenimiento);
     });
-    it("", () => {
+    it("devolver", () => {
         gar.comprarVehiculo(v1);
-        gar.reservar(v1,new Date(2024,10,10),new Date(2024,10,15),100);
-        gar.reservar(v1,new Date(2024,10,20),new Date(2024,10,25),100);
-    })
+        gar.reservar(v1,new Date(2026,10,10),new Date(2026,10,15),100);
+        gar.devolver(v1);
+        expect(v1.getEstado()).toBeInstanceOf(Disponible);
+    });
 })
