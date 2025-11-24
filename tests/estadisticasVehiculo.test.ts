@@ -24,12 +24,12 @@ describe("Manipulacion de las estadisticas de un vehiculo", () => {
         expect(v.getRentabilidad()).toBe(10);
     });
     it("actualizar tablero con parametros que requieren un mantenimiento", () => {
-        v.actualizarTableroReserva(new Date(2024,10,10),new Date(2024,10,15),10001,new TemporadaMedia());
+        v.actualizarTableroReserva(new Date(2026,10,10),new Date(2026,10,15),10001,new TemporadaMedia());
         expect(v.getEstado()).toBeInstanceOf(EnMantenimiento);
     });
     it("actualizar tablero con parametros que no requieren un mantenimiento", () => {
         v.actualizarTableroReserva(new Date(),new Date(),10,new TemporadaMedia());
-        expect(() => v.colisiona(new Date(),new Date())).not.toThrow(new Error("El vehiculo esta en mantenimiento."));
+        expect(v.getEstado()).toBeInstanceOf(Disponible);
     });
     it("Funcion logica de disparador de mantenimiento", () => {
         v.sumarKilometrosRecorridos(20000);

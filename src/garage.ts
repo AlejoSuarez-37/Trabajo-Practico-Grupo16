@@ -55,4 +55,7 @@ export default class Garage {
         vehiculo.getEstado().mantener(fechaInicio,fechaFin);
         vehiculo.actualizarTableroMantenimiento(fechaInicio,fechaFin);
     }
+    public devolver(vehiculo:Vehiculo):void {
+        vehiculo.getEstado().devolver();
+    }
 }
