@@ -1,6 +1,5 @@
 import Vehiculo from "../vehiculo/vehiculo";
 
-
 export default abstract class Estado{
     protected vehiculo: Vehiculo;
     private fechaInicio: Date;
