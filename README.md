@@ -1,3 +1,8 @@
+# Cosas a corregir
+    El garaje no debe de poder acceder al estado (agregar métodos mantener, reservar, devolver a Vehículo).
+    Se debe disparar el mantenimiento y actualizar el tablero al cambiar de estado, no en el vehículo.
+
+# ---Utilizaciond el programa---
 # creamos clase Garage
     const garage = new Garage();
 
