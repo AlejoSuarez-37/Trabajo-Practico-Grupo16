@@ -19,7 +19,10 @@ export default abstract class Estado{
     public getVehiculo():Vehiculo {
         return this.vehiculo;
     }
-    
+    /**
+     * funcion para detectar colisiones entre los dias.
+     * @returns si colisiona o no
+     */
     public colisiona(fechaInicio:Date, fechaFin:Date):boolean {
         if(fechaInicio >= this.fechaFin && fechaFin >= this.fechaFin){
             return false;

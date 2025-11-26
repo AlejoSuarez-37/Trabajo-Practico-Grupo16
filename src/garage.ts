@@ -12,7 +12,7 @@ export default class Garage {
      * @param vehiculo - el vehiculo a guardar
      */
     public comprarVehiculo(vehiculo:Vehiculo):void {
-        this.vehiculos.set(vehiculo.getMatricula(), vehiculo);
+        this.vehiculos.set(vehiculo.getMatricula(),vehiculo);
     }
     public getVehiculos():Map<string,Vehiculo> {
         return this.vehiculos;

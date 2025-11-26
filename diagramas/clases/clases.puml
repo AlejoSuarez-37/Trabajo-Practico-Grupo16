@@ -1,8 +1,7 @@
 @startuml Diagrama de clases
 class Garage {
+    - temporada: Temporada
     - vehiculos: Map<string,Vehiculo>;
-    - reservas: Set<Evento>;
-    - mantenimientos: Set<Evento>;
     
     + comprarVehiculo(vehiculo: Vehiculo)
     + setters_y_getters()
@@ -13,7 +12,6 @@ class Garage {
 }
 
 abstract class Vehiculo {
-    - matricula: string
     - matricula: string
     - estado: Estado
     - registroReserva: Registo
@@ -33,51 +31,39 @@ abstract class Vehiculo {
     + abstract obtenerTarifaReserva(dias: number, kilometros: number)
     + abstract obtenerTarifaMantenimiento(dias: number)
 }
-class Compacto {
-
-}
-class Sedán {
-
-}
-class SUV {
-
-}
+class Compacto {}
+class Sedán {}
+class SUV {}
 
 abstract class Estado{
     # vehiculo: Vehiculo
     - fechaInicio: Date
     - fechaFin: Date
 
-    + setContexto()
+    + getters()
     + colisiona()
 
     + abstract reservar()
     + abstract mantener()
     + abstract devolver()
 }
-class Disponible {
-
-}
-class EnReseva {
-
-}
-class EnMantenimiento {
-
-}
+class Disponible {}
+class EnReseva {}
+class EnMantenimiento {}
 
 abstract class Registro {
     # registro: Set<Estado>
     + abstract getRegistro():Set<Estado>
 }
-class RegistroReserva {}
+class RegistroReserva extends Registro{}
 
-interface Reporte {
+interface ReporteI {
     analizar(garage:Garage):Vehiculo
 }
-class VehiculoMasAlquilado implements Reporte {}
-class VehiculoMenosAlquilado implements Reporte {}
-class VehiculoMayorRentabilidad implements Reporte {}
-class VehiculoMenorRentabilidad implements Reporte {}
+class VehiculoMasAlquilado implements ReporteI {}
+class VehiculoMenosAlquilado implements ReporteI {}
+class VehiculoMayorRentabilidad implements ReporteI {}
+class VehiculoMenorRentabilidad implements ReporteI {}
 
 interface OcupacionFlotaI {
     analizar(garage:Garage,fecha:Date):number
@@ -116,6 +102,5 @@ Estado <|-- Disponible
 Estado <|-- EnReseva
 Estado <|-- EnMantenimiento
 
-Registro <|-- RegistroReserva
 
 @enduml
