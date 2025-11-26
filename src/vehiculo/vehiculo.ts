@@ -1,12 +1,13 @@
 import { Temporada } from "../temporada/temporada";
 import Estado from "../estado/estado";
 import Disponible from "../estado/disponible";
-import EnReserva from "../estado/enReserva";
-import EnMantenimiento from "../estado/enMantenimiento";
 import Registo from "../registro/registro";
 import RegistroReserva from "../registro/registroReserva";
 
-
+/**
+ * clase Vehiculo central a la cual se le puede cambiar el estado, 
+ * actualizar sus metricas o obtener la tarifa de algun servicio.
+ */
 export default abstract class Vehiculo {
     private matricula: string;
     private estado:Estado;
@@ -23,7 +24,10 @@ export default abstract class Vehiculo {
         this.estado = new Disponible(this,new Date(),new Date());
         this.registroReserva = new RegistroReserva();
     }
-
+    /**
+     * funcion de interacion del Estado sobre el vehiculo contexto
+     * @param estado el estado al que se desea cambiar
+     */
     public cambiarEstado(estado:Estado):void {
         this.estado = estado;
     }
@@ -34,7 +38,10 @@ export default abstract class Vehiculo {
         return this.matricula;
     }
     
-
+    /**
+     * funcion para obtener el registro de las reservas (lo utiliza OcupacionFlota)
+     * @returns el registro de reservas
+     */
     public getRegistroReserva():Registo {
         return this.registroReserva;
     }
@@ -72,7 +79,10 @@ export default abstract class Vehiculo {
         return this.rentabilidad;
     }
 
-
+    /**
+     * funcion para resetar el tablero despues de un mantenimiento
+     * @param d dia final del mantenimiento
+     */
     public resetTablero(d:Date):void {
         this.kilometrosRecorridos = 0;
         this.alquileresDesdeMantenimiento = 0;
@@ -102,6 +112,9 @@ export default abstract class Vehiculo {
         const diffMiliseg = fechaFin.getTime() - fechaInicio.getTime();
         return Math.ceil(diffMiliseg / (1000 * 60 * 60 * 24));
     }
+    /**
+     * funcion que utiliza las funciones internas del Vehiculo para alterar sus metricas segun una reserva
+     */
     public actualizarTableroReserva(fechaInicio:Date, fechaFin:Date, kilometros:number, temporada:Temporada):void {
         this.aumentarAlquileresMantenimiento();
         this.sumarKilometrosRecorridos(kilometros);
@@ -110,11 +123,20 @@ export default abstract class Vehiculo {
         this.sumarRentabilidad(this.obtenerTarifaReserva(this.calcularCantDias(fechaInicio,fechaFin),kilometros,temporada));
         this.dispararMantenimiento(fechaFin);
     }
+    /**
+     * funcion que utiliza las funciones internas del Vehiculo para alterar sus metricas segun un mantenimiento
+     */
     public actualizarTableroMantenimiento(fechaInicio:Date, fechaFin:Date):void {
         this.restarRentabilidad(this.obtenerTarifaMantenimiento(this.calcularCantDias(fechaInicio,fechaFin)));
         this.resetTablero(fechaFin);
     }
-    
+    /**
+     * funcion para obtener una tarifa de reserva
+     * @param temporada la temporada (el vehiculo no la sabe, solo sabe que se le pasara una temporada)
+     */
     public abstract obtenerTarifaReserva(dias: number, kilometros: number, temporada: Temporada):number
+    /**
+     * funcion para obtener una tarifa de mantenimiento
+     */
     public abstract obtenerTarifaMantenimiento(dias: number):number
 }
